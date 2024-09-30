@@ -1,96 +1,142 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# AÇÃO CURRICULAR DE EXTENSÃO 2: PROJETO - PLATAFORMA MARKETPLACE
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+**Trabalho para avaliação do 4º período do curso de Sistemas para Internet da Universidade Estadual de Ciência da Saúde de Alagoas (UNCISAL), como requisito parcial para a pontuação no período atual do curso.**
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+**Professor:** Reinaldo Alves da Silva
 
-## Features
+**MACEIÓ - AL, 2024**
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Middleware
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+## SUMÁRIO
+- [AÇÃO CURRICULAR DE EXTENSÃO 2: PROJETO - PLATAFORMA MARKETPLACE](#ação-curricular-de-extensão-2-projeto---plataforma-marketplace)
+  - [SUMÁRIO](#sumário)
+  - [O PROJETO](#o-projeto)
+    - [SOBRE](#sobre)
+    - [OBJETIVOS](#objetivos)
+    - [REQUISITOS DO PROJETO](#requisitos-do-projeto)
+      - [Interface do Usuário (UI) e Usabilidade:](#interface-do-usuário-ui-e-usabilidade)
+      - [Funcionalidades de Backend:](#funcionalidades-de-backend)
+      - [Banco de Dados:](#banco-de-dados)
+      - [Segurança e Proteção de Dados:](#segurança-e-proteção-de-dados)
+      - [Hospedagem e Infraestrutura:](#hospedagem-e-infraestrutura)
+    - [CONCEITO A SER SEGUIDO](#conceito-a-ser-seguido)
+  - [DEFINIÇÃO DAS FERRAMENTAS E SUA ORGANIZAÇÃO](#definição-das-ferramentas-e-sua-organização)
+    - [FRONTEND](#frontend)
+    - [BACKEND E INTEGRAÇÕES](#backend-e-integrações)
+    - [HOSPEDAGEM E INFRAESTRUTURA](#hospedagem-e-infraestrutura-1)
+    - [FERRAMENTAS ADICIONAIS](#ferramentas-adicionais)
+  - [PRIMEIRA ETAPA](#primeira-etapa)
+    - [DEFINIÇÃO DA ARQUITETURA DO SISTEMA](#definição-da-arquitetura-do-sistema)
+      - [Estrutura dos Diretórios](#estrutura-dos-diretórios)
+    - [IMPLEMENTAÇÃO DA INTERFACE DE LOGIN E REGISTRO DE USUÁRIOS](#implementação-da-interface-de-login-e-registro-de-usuários)
 
-## Demo
+## O PROJETO
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+### SOBRE
+Desenvolver um Marketplace, uma plataforma web que permita aos vendedores cadastrar produtos e aos compradores visualizar, pesquisar, adicionar ao carrinho e simular pagamentos. A plataforma deve incluir funcionalidades de login e registro de usuários.
 
-## Deploy to Vercel
+### OBJETIVOS
+- Aplicar conceitos de Programação Orientada a Objetos e Arquitetura de Sistemas Web.
+- Implementar funcionalidades de segurança e gestão de usuários (autenticação e controle de acesso).
+- Integrar um banco de dados para armazenar informações de produtos, usuários e transações.
+- Desenvolver um sistema com boas práticas de usabilidade, baseando-se nos princípios de Interação Humano-Computador.
+- Utilizar tecnologias de servidores e computação em nuvem para hospedagem e execução do sistema.
+- Garantir a segurança dos dados e proteção contra ataques comuns, como SQL Injection e Cross-Site Scripting (XSS).
 
-Vercel deployment will guide you through creating a Supabase account and project.
+### REQUISITOS DO PROJETO
+#### Interface do Usuário (UI) e Usabilidade:
+- Interface amigável, com base em princípios de Interação Humano-Computador.
+- Página inicial com pesquisa e exibição de produtos.
+- Páginas para login e cadastro de usuários (vendedores e compradores).
+- Dashboard para vendedores gerenciarem produtos.
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+#### Funcionalidades de Backend:
+- Autenticação de usuários com controle de acesso.
+- CRUD de produtos.
+- Carrinho de compras e simulação de pagamento.
+- Gerenciamento de pedidos e histórico de compras.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+#### Banco de Dados:
+- Modelagem e implementação do banco de dados para usuários, produtos e pedidos.
+- Boas práticas de normalização e integridade dos dados.
+- Consultas SQL seguras para prevenir injeções.
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+#### Segurança e Proteção de Dados:
+- Criptografia de senhas de usuários.
+- Proteção contra XSS e injeções.
+- Controle de sessão e segurança contra acessos indevidos.
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+#### Hospedagem e Infraestrutura:
+- Hospedagem utilizando servidores e computação em nuvem (e.g., AWS, Google Cloud).
+- Configuração de servidor web para gerenciar o sistema.
 
-## Clone and run locally
+### CONCEITO A SER SEGUIDO
+Muitas plataformas de e-commerce atuais permitem a compra de produtos de diversas marcas e empresas, independentemente da localização, o que pode resultar na movimentação de recursos financeiros para fora do município. Isso impacta negativamente a indústria e pequenos negócios locais, que enfrentam concorrência intensa e custos elevados impostos por essas plataformas.
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+Nossa proposta é desenvolver uma plataforma de Marketplace que permita aos usuários registrar e vender produtos exclusivamente na sua região. O objetivo é fomentar a economia local, promovendo a circulação de moeda e produtos dentro da comunidade. Os produtos disponíveis para compra serão visíveis apenas para usuários localizados na mesma região, incentivando a compra e venda local.
 
-2. Create a Next.js app using the Supabase Starter template npx command
+Para os vendedores, a plataforma proporcionará uma solução eficiente para adquirir outros produtos necessários na mesma região, reduzindo a necessidade de recorrer a plataformas externas. Para garantir a competitividade, oferecemos taxas de transação menores, beneficiando tanto a plataforma quanto o usuário final. A segurança é uma prioridade: os pagamentos serão intermediados e liberados somente após a confirmação da entrega, utilizando um código de rastreamento. Nossa abordagem é garantir simplicidade e eficácia, atendendo às necessidades dos nossos clientes de forma clara e direta.
 
-   ```bash
-   npx create-next-app -e with-supabase
-   ```
+## DEFINIÇÃO DAS FERRAMENTAS E SUA ORGANIZAÇÃO
 
-3. Use `cd` to change into the app's directory
+### FRONTEND
+- **React:** Biblioteca para construção da interface.
+- **Next.js:** Framework React para renderização no lado do servidor (SSR), otimização de SEO e geração de páginas estáticas.
+- **TypeScript:** Superset de JavaScript que adiciona tipagem estática.
+- **Tailwind CSS:** Framework CSS utilitário para estilização rápida e eficiente.
+- **Headless UI:** Componentes UI acessíveis e estilizados que funcionam com Tailwind CSS.
+- **HyperUI e DaisyUI:** Bibliotecas de componentes estilizados com o Tailwind CSS.
+- **React Select:** Componente para seleção com autocomplete.
+- **React Hook Form:** Gerenciamento de formulários com menos re-renderizações.
+- **Zod:** Validação de esquema de dados nos formulários.
+- **MonaHealth React Input Mask:** Máscara de input para formulários.
+- **Lucide:** Biblioteca de ícones flexível.
+- **TanStack Table:** Biblioteca para criar tabelas complexas.
+- **Highcharts (opcional):** Bibliotecas para gráficos.
+- **React Spring (opcional):** Animações em React.
 
-   ```bash
-   cd name-of-new-app
-   ```
+### BACKEND E INTEGRAÇÕES
+- **Supabase:** Backend-as-a-Service (BaaS) que oferece autenticação, banco de dados (PostgreSQL) e armazenamento de arquivos.
+- **API Asaas ou API MercadoPago:** Integração para simulação de pagamentos.
+- **API Servicodados.IBGE:** Para nomes de cidades.
+- **API ViaCEP:** Para localizar endereços.
+- **Node-argon2:** Biblioteca para hashing de senhas.
+- **Axios:** Biblioteca para fazer chamadas HTTP.
+- **React Query:** Gerenciamento de estado e data-fetching para chamadas assíncronas.
 
-4. Rename `.env.example` to `.env.local` and update the following:
+### HOSPEDAGEM E INFRAESTRUTURA
+- **Vercel:** Plataforma de hospedagem para aplicações Next.js.
 
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
+### FERRAMENTAS ADICIONAIS
+- **Compressor.js:** Biblioteca para compressão de imagens.
+- **Cropper.js:** Biblioteca de corte de imagens.
+- **Postman:** Ferramenta para testar APIs.
 
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
+## PRIMEIRA ETAPA
 
-5. You can now run the Next.js local development server:
+### DEFINIÇÃO DA ARQUITETURA DO SISTEMA
+Mediante as ferramentas definidas para o desenvolvimento do sistema, de forma clara e direta, foi alinhada a seguinte arquitetura para o projeto:
 
-   ```bash
-   npm run dev
-   ```
+- **FRONTEND:** Será desenvolvido com Next.js, utilizando React, Tailwind CSS, e Headless UI para a construção da interface.
+- **BACKEND:** Usará o Next.js API routes para lidar com rotas de API e conectar-se ao Supabase para autenticação e banco de dados.
+- **AUTENTICAÇÃO:** Utilizará o Supabase para autenticação de usuários (login e cadastro), que inclui suporte para JWT e OAuth.
+- **BANCO DE DADOS:** Supabase (PostgreSQL) armazenará informações de usuários e, eventualmente, produtos e pedidos.
+- **HOSPEDAGEM:** A aplicação será hospedada no Vercel, que se integra bem com Next.js.
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+#### Estrutura dos Diretórios
+- `APP/`: Contém as páginas e layouts da aplicação.
+- `ASSETS/`: Armazenar arquivos estáticos como imagens e fontes.
+- `COMPONENTS/`: Inclui componentes React reutilizáveis, como botões, cabeçalhos e rodapés.
+- `SCHEMAS/`: Contém esquemas de validação para formulários e dados (por exemplo, Zod).
+- `UTILS/`: Funções utilitárias e helpers que são usadas em várias partes do projeto.
+- `SERVICES/`: Serviços que fazem chamadas à API e encapsulam a lógica de acesso aos dados.
+- `CONTEXTS/`: Contextos React para gerenciamento de estado global.
+- `HOOKS/`: Hooks personalizados que encapsulam lógica de estado ou efeitos.
+- `STYLES/`: Arquivos de estilo e configuração de CSS.
+- `TYPES/`: Tipos e interfaces TypeScript usados em toda a aplicação.
+- `CONFIG/`: Arquivos de configuração e constantes da aplicação, como endpoints da API e configurações gerais.
+- `TESTS/`: Testes unitários e de
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+ integração (caso optado).
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
-
-## Feedback and issues
-
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
-
-## More Supabase examples
-
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+### IMPLEMENTAÇÃO DA INTERFACE DE LOGIN E REGISTRO DE USUÁRIOS
+Na primeira etapa do projeto, serão implementadas as interfaces de login e registro. O foco será na usabilidade, garantindo que o processo de autenticação seja simples e intuitivo.
