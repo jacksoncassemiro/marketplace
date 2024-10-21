@@ -2,8 +2,8 @@ import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
 export const updateSession = async (request: NextRequest) => {
-  // This `try/catch` block is only here for the interactive tutorial.
-  // Feel free to remove once you have Supabase connected.
+  // Este bloco `try/catch` está aqui apenas para o tutorial interativo.
+  // Sinta-se à vontade para remover assim que tiver o Supabase conectado.
   try {
     // Create an unmodified response
     let response = NextResponse.next({
@@ -35,7 +35,7 @@ export const updateSession = async (request: NextRequest) => {
       },
     );
 
-    // This will refresh session if expired - required for Server Components
+    // Isso atualizará a sessão se expirar - necessário para componentes do servidor
     // https://supabase.com/docs/guides/auth/server-side/nextjs
     const user = await supabase.auth.getUser();
 
@@ -50,9 +50,9 @@ export const updateSession = async (request: NextRequest) => {
 
     return response;
   } catch (e) {
-    // If you are here, a Supabase client could not be created!
-    // This is likely because you have not set up environment variables.
-    // Check out http://localhost:3000 for Next Steps.
+    // Se você estiver aqui, um cliente Supabase não pôde ser criado!
+    // Isso provavelmente ocorre porque você não configurou variáveis ​​de ambiente.
+    // Confira http://localhost:3000 para as próximas etapas.
     return NextResponse.next({
       request: {
         headers: request.headers,
