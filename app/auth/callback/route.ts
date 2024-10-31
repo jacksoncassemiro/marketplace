@@ -2,8 +2,8 @@ import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  // The `/auth/callback` route is required for the server-side auth flow implemented
-  // by the SSR package. It exchanges an auth code for the user's session.
+  // A rota `/auth/callback` é necessária para o fluxo de autenticação do lado do servidor implementado
+  // pelo pacote SSR. Ele troca um código de autenticação para a sessão do usuário.
   // https://supabase.com/docs/guides/auth/server-side/nextjs
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
