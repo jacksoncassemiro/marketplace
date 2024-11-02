@@ -3,10 +3,8 @@ import { type NextRequest, NextResponse } from "next/server";
 
 export const updateSession = async (request: NextRequest) => {
   // Crie uma resposta não modificada
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
+  let supabaseResponse = NextResponse.next({
+    request,
   });
 
   const supabase = createServerClient(
@@ -21,11 +19,11 @@ export const updateSession = async (request: NextRequest) => {
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value),
           );
-          response = NextResponse.next({
+          supabaseResponse = NextResponse.next({
             request,
           });
           cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options),
+            supabaseResponse.cookies.set(name, value, options),
           );
         },
       },
@@ -45,5 +43,5 @@ export const updateSession = async (request: NextRequest) => {
     return NextResponse.redirect(new URL("/protected", request.url));
   }
 
-  return response;
+  return supabaseResponse;
 };
