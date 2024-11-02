@@ -8,12 +8,12 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
-     * Feel free to modify this pattern to include more paths.
+      * Corresponde a todos os caminhos de solicitação, exceto:
+      * - _next/static (arquivos estáticos)
+      * - _next/image (arquivos de otimização de imagem)
+      * - favicon.ico (arquivo favicon)
+      * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
+      * Sinta-se à vontade para modificar este padrão para incluir mais caminhos.
      */
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
