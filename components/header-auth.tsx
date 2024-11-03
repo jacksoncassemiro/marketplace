@@ -1,4 +1,4 @@
-import { actionSignOut } from "@/app/(paginas-de-autenticacao)/authUtils";
+import { actionSignOut } from "@/app/(auth-pages)/authUtils";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { Button } from "./ui/button";
