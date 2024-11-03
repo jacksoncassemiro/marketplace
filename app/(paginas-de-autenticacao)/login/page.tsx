@@ -11,7 +11,10 @@ export default function Login({ searchParams }: { searchParams: Message }) {
 			<h1 className="text-2xl font-medium">Sign in</h1>
 			<p className="text-sm text-foreground">
 				Don't have an account?{" "}
-				<Link className="text-foreground font-medium underline" href="/sign-up">
+				<Link
+					className="text-foreground font-medium underline"
+					href="/criar-conta"
+				>
 					Sign up
 				</Link>
 			</p>
@@ -22,7 +25,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
 					<Label htmlFor="password">Password</Label>
 					<Link
 						className="text-xs text-foreground underline"
-						href="/forgot-password"
+						href="/alterar-senha"
 					>
 						Forgot Password?
 					</Link>
