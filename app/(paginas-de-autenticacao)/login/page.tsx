@@ -1,4 +1,4 @@
-import { signInAction } from "@/app/(paginas-de-autenticacao)/autenticacaoUtils";
+import { actionSignIn } from "@/app/(paginas-de-autenticacao)/authUtils";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
@@ -36,7 +36,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
 					placeholder="Your password"
 					required
 				/>
-				<SubmitButton pendingText="Signing In..." formAction={signInAction}>
+				<SubmitButton pendingText="Signing In..." formAction={actionSignIn}>
 					Sign in
 				</SubmitButton>
 				<FormMessage message={searchParams} />

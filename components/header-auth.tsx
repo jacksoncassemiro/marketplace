@@ -1,4 +1,4 @@
-import { signOutAction } from "@/app/(paginas-de-autenticacao)/autenticacaoUtils";
+import { actionSignOut } from "@/app/(paginas-de-autenticacao)/authUtils";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { Button } from "./ui/button";
@@ -11,7 +11,7 @@ export default async function AuthButton() {
 	return user ? (
 		<div className="flex items-center gap-4">
 			Hey, {user.email}!
-			<form action={signOutAction}>
+			<form action={actionSignOut}>
 				<Button type="submit" variant={"outline"}>
 					Sign out
 				</Button>
