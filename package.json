@@ -6,6 +6,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/server": "^11.4.0",
     "@mantine/carousel": "^7.13.4",
     "@mantine/charts": "^7.13.4",
     "@mantine/core": "^7.13.4",
