@@ -24,14 +24,8 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body className="">
+      <body>
         <MantineProvider theme={theme} defaultColorScheme="light" withCssVariables>
-          <div className="min-h-screen flex flex-col items-center">
-            <div className="flex gap-5 items-center font-semibold">
-              <Link href={"/"}>Next.js Supabase Starter</Link>
-            </div>
-            <HeaderAuth />
-          </div>
           {children}
         </MantineProvider>
       </body>
