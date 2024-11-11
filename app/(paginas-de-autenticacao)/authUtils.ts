@@ -12,7 +12,7 @@ export const actionSignUp = async (formData: FormData) => {
 	const origin = headers().get("origin");
 
 	if (!email || !password) {
-		return { error: "Email and password are required" };
+		return { error: "E-mail e senha são obrigatórios." };
 	}
 
 	const { error } = await supabase.auth.signUp({
@@ -20,6 +20,9 @@ export const actionSignUp = async (formData: FormData) => {
 		password,
 		options: {
 			emailRedirectTo: `${origin}/auth/callback`,
+			data: {
+				is_redefinindo_senha: false,
+			},
 		},
 	});
 
@@ -30,7 +33,7 @@ export const actionSignUp = async (formData: FormData) => {
 		return encodedRedirect(
 			"success",
 			"/criar-conta",
-			"Thanks for signing up! Please check your email for a verification link."
+			"Obrigado por se inscrever! Por favor, verifique seu e-mail para um link de verificação."
 		);
 	}
 };
@@ -49,7 +52,7 @@ export const actionSignIn = async (formData: FormData) => {
 		return encodedRedirect("error", "/login", error.message);
 	}
 
-	return redirect("/protected");
+	return redirect("/");
 };
 
 export const actionForgotPassword = async (formData: FormData) => {
@@ -59,7 +62,7 @@ export const actionForgotPassword = async (formData: FormData) => {
 	const callbackUrl = formData.get("callbackUrl")?.toString();
 
 	if (!email) {
-		return encodedRedirect("error", "/alterar-senha", "Email is required");
+		return encodedRedirect("error", "/alterar-senha", "E-mail é obrigatório.");
 	}
 
 	const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -71,7 +74,7 @@ export const actionForgotPassword = async (formData: FormData) => {
 		return encodedRedirect(
 			"error",
 			"/alterar-senha",
-			"Could not reset password"
+			"Não foi possível redefinir a senha"
 		);
 	}
 
@@ -82,7 +85,7 @@ export const actionForgotPassword = async (formData: FormData) => {
 	return encodedRedirect(
 		"success",
 		"/alterar-senha",
-		"Check your email for a link to reset your password."
+		"Verifique seu e-mail para obter um link para redefinir sua senha."
 	);
 };
 
@@ -96,7 +99,7 @@ export const actionResetPassword = async (formData: FormData) => {
 		encodedRedirect(
 			"error",
 			"/protected/recuperar-senha",
-			"Password and confirm password are required"
+			"Senha e confirmação de senha são necessárias."
 		);
 	}
 
@@ -104,7 +107,7 @@ export const actionResetPassword = async (formData: FormData) => {
 		encodedRedirect(
 			"error",
 			"/protected/recuperar-senha",
-			"Passwords do not match"
+			"As senhas não correspondem."
 		);
 	}
 
@@ -116,11 +119,11 @@ export const actionResetPassword = async (formData: FormData) => {
 		encodedRedirect(
 			"error",
 			"/protected/recuperar-senha",
-			"Password update failed"
+			"Falha na atualização da senha."
 		);
 	}
 
-	encodedRedirect("success", "/protected/recuperar-senha", "Password updated");
+	encodedRedirect("success", "/protected/recuperar-senha", "Senha atualizada.");
 };
 
 export const actionSignOut = async () => {
