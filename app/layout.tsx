@@ -1,5 +1,6 @@
 import '@mantine/core/styles.css';
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
+import { AuthProvider } from '@/contexts/AuthContext';
 import { theme } from '../theme';
 import "./globals.css";
 
@@ -19,15 +20,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
-      <head>
-        <ColorSchemeScript />
-      </head>
-      <body>
-        <MantineProvider theme={theme} defaultColorScheme="light" withCssVariables>
-          {children}
-        </MantineProvider>
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="pt-BR" suppressHydrationWarning>
+        <head>
+          <ColorSchemeScript />
+        </head>
+        <body>
+          <MantineProvider theme={theme} defaultColorScheme="light" withCssVariables>
+            {children}
+          </MantineProvider>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }
