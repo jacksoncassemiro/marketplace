@@ -1,9 +1,20 @@
+import { Main } from "@/components/layout/Main";
+import { HeaderSimple } from "@/components/layout/HeaderSimple";
+import { Container } from "@/components/layout/Container";
+
 export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="max-w-7xl flex flex-col gap-12 items-start">{children}</div>
+    <>
+      <HeaderSimple />
+      <Main>
+        <Container>
+          {children}
+        </Container>
+      </Main>
+    </>
   );
 }

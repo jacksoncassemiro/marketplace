@@ -1,8 +1,8 @@
-// app/context/AuthContext.tsx
-"use client";
+'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode, FC } from 'react';
 import { createClient } from "@/utils/supabase/client";
+import { useDisclosure } from '@mantine/hooks';
 
 type User = {
   id: string;
@@ -11,49 +11,34 @@ type User = {
 
 interface AuthContextType {
   user: User | null;
+  openedBurger: boolean;
+  toggleBurger: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export function AuthProvider ({ children }: { children: ReactNode }) {
   const supabase = createClient();
   const [user, setUser] = useState<User | null>(null);
+  const [opened, { toggle }] = useDisclosure();
 
   const getUserProfile = async () => {
     const { data } = await supabase.auth.getUser();
     if (data.user) setUser({ id: data.user.id, email: data.user.email! });
     console.log("data", data);
   };
-  
-  useEffect(() => {
 
+  useEffect(() => {
     getUserProfile();
     console.log("rodou o context");
-
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      getUserProfile();
-      console.log("event", event);
-      console.log("session", session);
-      if (event === 'INITIAL_SESSION') {
-        console.log("INITIAL_SESSION");
-      } else if (event === 'SIGNED_IN') {
-        console.log("SIGNED_IN");
-      } else if (event === 'SIGNED_OUT') {
-        console.log("SIGNED_OUT");
-      } else if (event === 'PASSWORD_RECOVERY') {
-        console.log("PASSWORD_RECOVERY");
-      } else if (event === 'TOKEN_REFRESHED') {
-        console.log("TOKEN_REFRESHED");
-      } else if (event === 'USER_UPDATED') {
-        console.log("USER_UPDATED");
-      }
-    });
-
-    return () => authListener?.subscription.unsubscribe();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{
+      user,
+      openedBurger: opened,
+      toggleBurger: toggle,
+    }}>
       {children}
     </AuthContext.Provider>
   );

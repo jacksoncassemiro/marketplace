@@ -1,12 +1,26 @@
 import { actionSignOut } from "@/app/(paginas-de-autenticacao)/authUtils";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
-export default async function AuthButton() {
-	const {
-		data: { user },
-	} = await createClient().auth.getUser();
+type User = {
+  id: string;
+  email: string;
+};
+
+export default function AuthButton() {
+	const supabase = createClient();
+	const [user, setUser] = useState<User | null>(null);
+	
+	const getUserProfile = async () => {
+		const { data } = await supabase.auth.getUser();
+    if (data.user) setUser({ id: data.user.id, email: data.user.email! });
+		console.log("data", data);
+	};
+	useEffect(() => {
+		getUserProfile();
+	})
 
 	return user ? (
 		<div className="flex items-center gap-4">
