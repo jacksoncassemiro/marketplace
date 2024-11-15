@@ -1,11 +1,11 @@
 'use client';
 
-import { AppShell, Box } from '@mantine/core';
+import { Box } from '@mantine/core';
 import { Container } from "@/components/layout/Container";
 
 export const Footer = () => {
   return (
-    <AppShell.Footer>
+    <footer>
       <Container>
         <Box className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
@@ -345,6 +345,6 @@ export const Footer = () => {
           </div>
         </Box>
       </Container>
-    </AppShell.Footer>
+    </footer>
   );
 };

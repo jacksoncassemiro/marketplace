@@ -1,12 +1,11 @@
 'use client';
 
-import { AppShell } from '@mantine/core';
 import { ReactNode } from 'react';
 
 export const Main = ({ children }: { children: ReactNode }) => {
   return (
-    <AppShell.Main>
+    <main>
       {children}
-    </AppShell.Main>
+    </main>
   );
 };

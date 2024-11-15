@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { createClient } from "@/utils/supabase/client";
-import { useDisclosure } from '@mantine/hooks';
 import { useRouter } from 'next/navigation';
 import { getOrigin } from "@/utils/getOrigin";
 
@@ -13,8 +12,6 @@ type User = {
 
 interface AuthContextType {
   user: User | null;
-  openedBurger: boolean;
-  toggleBurger: () => void;
   logOut: () => void;
   logIn: ({ email, password }: AuthProps) => void;
 }
@@ -30,8 +27,11 @@ export function AuthProvider ({ children }: { children: ReactNode }) {
   const router = useRouter()
   const supabase = createClient();
   const [user, setUser] = useState<User | null>(null);
-  const [opened, { toggle }] = useDisclosure();
   const origin = getOrigin();
+
+  const getProfile = () => {
+    console.log(user);
+  };
 
   async function logIn({ email, password }: AuthProps) {
     const { error } = await supabase.auth.signInWithPassword({ email, password })
@@ -65,22 +65,18 @@ export function AuthProvider ({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const {data: { subscription }} = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'INITIAL_SESSION') {
-        // handle initial session
-      } else if (event === 'SIGNED_OUT') {
-        console.log('signed out');
-        setUser(null);
-      } else if (session) {
-        console.log('signed in ', session);
-        const { user } = session;
-        setUser({ id: user.id, email: user.email! });
-      } else if (event === 'PASSWORD_RECOVERY') {
-        // handle password recovery event
-      } else if (event === 'TOKEN_REFRESHED') {
-        // handle token refreshed event
-      } else if (event === 'USER_UPDATED') {
-        // handle user updated event
-      }
+      setUser((prevUser) => {
+        const sessionUser = session?.user ?? null;
+
+        if (event === "SIGNED_IN" && sessionUser?.id !== prevUser?.id) {
+          console.log("signed in");
+          return { id: sessionUser?.id!, email: sessionUser?.email! };
+        } else if (event === "SIGNED_OUT") {
+          console.log("signed out");
+          return null;
+        }
+        return prevUser;
+      });
     })
 
     return () => {
@@ -88,12 +84,13 @@ export function AuthProvider ({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  useEffect(() => {
+    getProfile();
+  },[user])
 
   return (
     <AuthContext.Provider value={{
       user,
-      openedBurger: opened,
-      toggleBurger: toggle,
       logOut,
       logIn,
     }}>
