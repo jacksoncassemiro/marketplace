@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 import { createClient } from "@/utils/supabase/client";
 import { useDisclosure } from '@mantine/hooks';
 import { useRouter } from 'next/navigation';
+import { getOrigin } from "@/utils/getOrigin";
 
 type User = {
   id: string;
@@ -28,9 +29,9 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider ({ children }: { children: ReactNode }) {
   const router = useRouter()
   const supabase = createClient();
-  const [origin, setOrigin] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [opened, { toggle }] = useDisclosure();
+  const origin = getOrigin();
 
   async function logIn({ email, password }: AuthProps) {
     const { error } = await supabase.auth.signInWithPassword({ email, password })
@@ -82,9 +83,6 @@ export function AuthProvider ({ children }: { children: ReactNode }) {
       }
     })
 
-    const getOrigen = window.location.origin;
-    setOrigin(getOrigen);
-    console.log(getOrigen)
     return () => {
       subscription.unsubscribe()
     }
