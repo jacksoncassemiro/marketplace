@@ -10,6 +10,7 @@ export const HeaderMain = () => {
     <Header>
       <div className="flex gap-5 items-center font-semibold">
         <Link href={"/"}>Next.js Supabase Starter</Link>
+        <Link href={"/protected"}>protected</Link>
       </div>
       <HeaderAuth />
     </Header>
