@@ -43,6 +43,15 @@ export const updateSession = async (request: NextRequest) => {
 		return NextResponse.redirect(redirectUrl);
 	}
 
+	if (
+		!request.nextUrl.pathname.startsWith("/protected/recuperar-senha") && user.data.user?.user_metadata?.is_redefinindo_senha
+	) {
+		supabase.auth.updateUser({ data: { is_redefinindo_senha: false } });
+		supabase.auth.signOut();
+		const redirectUrl = new URL("/login", request.url);
+		return NextResponse.redirect(redirectUrl);
+	}
+
 	// retorna para página inicial se estiver logado e tentar acessar a página de login e criar conta
 	if (
 		!user.error &&

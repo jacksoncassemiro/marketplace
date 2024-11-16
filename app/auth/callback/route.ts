@@ -13,6 +13,8 @@ export async function GET(request: Request) {
 	if (code) {
 		const supabase = createClient();
 		await supabase.auth.exchangeCodeForSession(code);
+		
+		redirectTo === "/protected/recuperar-senha" && await supabase.auth.updateUser({ data: { is_redefinindo_senha: true } });
 	}
 
 	if (redirectTo) {

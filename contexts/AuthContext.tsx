@@ -3,7 +3,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode, useTransition } from 'react';
 import { createClient } from "@/utils/supabase/client";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { actionSignOut } from '@/app/(paginas-de-autenticacao)/authUtils';
 
 type User = {
   id: string;
@@ -33,16 +32,11 @@ export function AuthProvider ({ children }: { children: ReactNode }) {
   const getUserProfile = () => {
     startTransition( async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      
+
       if(user && !user.user_metadata?.is_redefinindo_senha) {
         const { id, email } = user;
         setUser({ id, email: email! });
         return;
-      };
-
-      if(user && user.user_metadata?.is_redefinindo_senha) {
-        await supabase.auth.updateUser({ data: { is_redefinindo_senha: false } });
-        await actionSignOut();
       };
 
       setUser(null);
