@@ -1,10 +1,10 @@
 import { Footer } from "@/components/layout/Footer";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-import "@mantine/core/styles.css";
 import { theme } from "../theme";
-import "./globals.css";
 import { getOrigin } from "@/utils/getOrigin";
+import "@mantine/core/styles.css";
+import "./globals.css";
 
 export const metadata = {
 	metadataBase: new URL(getOrigin()),
