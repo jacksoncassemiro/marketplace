@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
 export const updateSession = async (request: NextRequest) => {
+	const pathname = request.nextUrl.pathname;
 	// Crie uma resposta não modificada
 	let supabaseResponse = NextResponse.next({
 		request,
@@ -35,12 +36,35 @@ export const updateSession = async (request: NextRequest) => {
 	const user = await supabase.auth.getUser();
 
 	// rotas protegidas
-	if (request.nextUrl.pathname.startsWith("/protected") && user.error) {
-		return NextResponse.redirect(new URL("/login", request.url));
+	if (
+		pathname.startsWith("/protected") && user.error
+	) {
+		const redirectUrl = new URL("/login", request.url);
+		redirectUrl.searchParams.set("redirect", "auth");
+		return NextResponse.redirect(redirectUrl);
 	}
 
-	if (request.nextUrl.pathname === "/" && !user.error) {
-		return NextResponse.redirect(new URL("/protected", request.url));
+	// se tentar acessar qualquer página diferente de redefinição de senha e estiver em processo de redefinir senha irá deslogar
+	if (
+		!pathname.startsWith("/protected/recuperar-senha") &&
+		user.data.user?.user_metadata?.is_redefinindo_senha
+	) {
+		supabase.auth.updateUser({ data: { is_redefinindo_senha: false } });
+		supabase.auth.signOut();
+		const redirectUrl = new URL("/login", request.url);
+		return NextResponse.redirect(redirectUrl);
+	}
+
+	// retorna para página inicial se estiver logado e tentar acessar a página de login e criar conta
+	if (
+		!user.error &&
+		(
+			pathname === "/login" ||
+			pathname === "/criar-conta"
+		)
+	) {
+		const redirectUrl = new URL("/", request.url);
+		return NextResponse.redirect(redirectUrl);
 	}
 
 	return supabaseResponse;

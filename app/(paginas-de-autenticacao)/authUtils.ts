@@ -22,6 +22,7 @@ export const actionSignUp = async (formData: FormData) => {
 			emailRedirectTo: `${origin}/auth/callback`,
 			data: {
 				is_redefinindo_senha: false,
+				is_ativo: true,
 			},
 		},
 	});
@@ -52,7 +53,7 @@ export const actionSignIn = async (formData: FormData) => {
 		return encodedRedirect("error", "/login", error.message);
 	}
 
-	return redirect("/");
+	encodedRedirect("redirect", "/", "auth");
 };
 
 export const actionForgotPassword = async (formData: FormData) => {
@@ -129,5 +130,5 @@ export const actionResetPassword = async (formData: FormData) => {
 export const actionSignOut = async () => {
 	const supabase = createClient();
 	await supabase.auth.signOut();
-	return redirect("/login");
+	encodedRedirect("redirect", "/", "auth");
 };

@@ -1,12 +1,15 @@
 import { actionSignOut } from "@/app/(paginas-de-autenticacao)/authUtils";
-import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
-export default async function AuthButton() {
-	const {
-		data: { user },
-	} = await createClient().auth.getUser();
+type User = {
+  id: string;
+  email: string;
+};
+
+export default function AuthButton() {
+	const { user } = useAuth();
 
 	return user ? (
 		<div className="flex items-center gap-4">

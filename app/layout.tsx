@@ -1,33 +1,40 @@
-import '@mantine/core/styles.css';
-import { MantineProvider, ColorSchemeScript } from '@mantine/core';
-import { theme } from '../theme';
+import { Footer } from "@/components/layout/Footer";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { theme } from "../theme";
+import { getOrigin } from "@/utils/getOrigin";
+import "@mantine/core/styles.css";
 import "./globals.css";
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
-
 export const metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "Marketplace PI",
-  description: "Projeto desenvolvido para o curso de Sistemas para Internet da UNCISAL.",
+	metadataBase: new URL(getOrigin()),
+	title: "Marketplace PI",
+	description:
+		"Projeto desenvolvido para o curso de Sistemas para Internet da UNCISAL.",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return (
-    <html lang="pt-BR" suppressHydrationWarning>
-      <head>
-        <ColorSchemeScript />
-      </head>
-      <body>
-        <MantineProvider theme={theme} defaultColorScheme="light" withCssVariables>
-          {children}
-        </MantineProvider>
-      </body>
-    </html>
-  );
+	return (
+		<AuthProvider>
+			<html lang="pt-BR" suppressHydrationWarning>
+				<head>
+					<ColorSchemeScript />
+				</head>
+				<body>
+					<MantineProvider
+						theme={theme}
+						defaultColorScheme="light"
+						withCssVariables
+					>
+            {children}
+            <Footer />
+					</MantineProvider>
+				</body>
+			</html>
+		</AuthProvider>
+	);
 }
