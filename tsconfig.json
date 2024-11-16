@@ -32,7 +32,7 @@
       "@/contexts/*": ["./contexts/*"],
       "@/hooks/*": ["./hooks/*"],
       "@/styles/*": ["./styles/*"],
-      "@/types/*": ["./types/*"],
+      "@/public/*": ["./public/*"],
       "@/config/*": ["./config/*"],
       "@/tests/*": ["./tests/*"]
     }
