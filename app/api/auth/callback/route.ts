@@ -2,7 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-	// A rota `/auth/callback` é necessária para o fluxo de autenticação do lado do servidor implementado
+	// A rota `/api/auth/callback` é necessária para o fluxo de autenticação do lado do servidor implementado
 	// pelo pacote SSR. Ele troca um código de autenticação para a sessão do usuário.
 	// https://supabase.com/docs/guides/auth/server-side/nextjs
 	const requestUrl = new URL(request.url);

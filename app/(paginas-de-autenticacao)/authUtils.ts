@@ -19,7 +19,7 @@ export const actionSignUp = async (formData: FormData) => {
 		email,
 		password,
 		options: {
-			emailRedirectTo: `${origin}/auth/callback`,
+			emailRedirectTo: `${origin}/api/auth/callback`,
 			data: {
 				is_redefinindo_senha: false,
 				is_ativo: true,
@@ -67,7 +67,7 @@ export const actionForgotPassword = async (formData: FormData) => {
 	}
 
 	const { error } = await supabase.auth.resetPasswordForEmail(email, {
-		redirectTo: `${origin}/auth/callback?redirect_to=/protected/recuperar-senha`,
+		redirectTo: `${origin}/api/auth/callback?redirect_to=/protected/recuperar-senha`,
 	});
 
 	if (error) {
