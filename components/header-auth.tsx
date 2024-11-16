@@ -11,23 +11,21 @@ type User = {
 };
 
 export default function AuthButton() {
-	const { user, logOut, logIn } = useAuth();
+	const { user } = useAuth();
 
 	return user ? (
 		<div className="flex items-center gap-4">
 			Hey, {user.email}!
-			<Button type="submit" variant={"outline"} onClick={logOut}>
-				Sign out
-			</Button>
+			<form action={actionSignOut}>
+				<Button type="submit" variant={"outline"}>
+					Sign out
+				</Button>
+			</form>
 		</div>
 	) : (
 		<div className="flex gap-2">
-			<Button size="sm" variant={"outline"} onClick={() => logIn({
-				email: "mirop59104@hraifi.com",
-				password: "1q2w3eASD@."
-			})}>
-				Login
-				{/* <Link href="/login">Sign in</Link> */}
+			<Button asChild size="sm" variant={"outline"}>
+				<Link href="/login">Sign in</Link>
 			</Button>
 			<Button asChild size="sm" variant={"default"}>
 				<Link href="/criar-conta">Sign up</Link>

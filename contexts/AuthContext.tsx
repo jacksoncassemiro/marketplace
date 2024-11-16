@@ -2,8 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { createClient } from "@/utils/supabase/client";
-import { useRouter } from 'next/navigation';
-import { getOrigin } from "@/utils/getOrigin";
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type User = {
   id: string;
@@ -12,8 +11,6 @@ type User = {
 
 interface AuthContextType {
   user: User | null;
-  logOut: () => void;
-  logIn: ({ email, password }: AuthProps) => void;
 }
 
 interface AuthProps {
@@ -24,75 +21,39 @@ interface AuthProps {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider ({ children }: { children: ReactNode }) {
-  const router = useRouter()
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const supabase = createClient();
   const [user, setUser] = useState<User | null>(null);
-  const origin = getOrigin();
 
-  const getProfile = () => {
+  const getUserProfile = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
     console.log(user);
-  };
+    if(user) {
+      const { id, email } = user;
+      setUser({ id, email: email! });
+      return;
+    };
 
-  async function logIn({ email, password }: AuthProps) {
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) {
-      console.error(error)
-    }
-    router.push('/')
-  };
-
-  async function logOut() {
-    await supabase.auth.signOut()
-    router.push('/')
-  };
-
-  async function signUp({ email, password }: AuthProps) {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-        data: {
-          is_redefinindo_senha: false,
-        },
-      }
-    })
-    if (error) {
-      console.error(error)
-    }
-    router.push('/')
+    setUser(null);
   };
 
   useEffect(() => {
-    const {data: { subscription }} = supabase.auth.onAuthStateChange((event, session) => {
-      setUser((prevUser) => {
-        const sessionUser = session?.user ?? null;
+    const redirect = searchParams.get("redirect");
+    if(redirect === "auth") {
+      router.replace(pathname); 
+      getUserProfile();
+    };
+  }, [searchParams]);
 
-        if (event === "SIGNED_IN" && sessionUser?.id !== prevUser?.id) {
-          console.log("signed in");
-          return { id: sessionUser?.id!, email: sessionUser?.email! };
-        } else if (event === "SIGNED_OUT") {
-          console.log("signed out");
-          return null;
-        }
-        return prevUser;
-      });
-    })
-
-    return () => {
-      subscription.unsubscribe()
-    }
+  useEffect(() => {
+    getUserProfile();
   }, []);
-
-  useEffect(() => {
-    getProfile();
-  },[user])
 
   return (
     <AuthContext.Provider value={{
       user,
-      logOut,
-      logIn,
     }}>
       {children}
     </AuthContext.Provider>

@@ -35,8 +35,22 @@ export const updateSession = async (request: NextRequest) => {
 	const user = await supabase.auth.getUser();
 
 	// rotas protegidas
-	if (request.nextUrl.pathname.startsWith("/protected") && user.error) {
-		return NextResponse.redirect(new URL("/login", request.url));
+	if (
+		request.nextUrl.pathname.startsWith("/protected") && (user.error || user.data.user?.user_metadata?.is_redefinindo_senha)
+	) {
+		const redirectUrl = new URL("/login", request.url);
+		redirectUrl.searchParams.set("redirect", "auth");
+		return NextResponse.redirect(redirectUrl);
+	}
+
+	// retorna para página inicial se estiver logado e tentar acessar a página de login e criar conta
+	if (
+		!user.error &&
+		(request.nextUrl.pathname === "/login" ||
+			request.nextUrl.pathname === "/criar-conta")
+	) {
+		const redirectUrl = new URL("/", request.url);
+		return NextResponse.redirect(redirectUrl);
 	}
 
 	return supabaseResponse;
