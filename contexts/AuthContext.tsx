@@ -1,8 +1,9 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode, useTransition } from 'react';
 import { createClient } from "@/utils/supabase/client";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { actionSignOut } from '@/app/(paginas-de-autenticacao)/authUtils';
 
 type User = {
   id: string;
@@ -11,6 +12,7 @@ type User = {
 
 interface AuthContextType {
   user: User | null;
+  isLoading: boolean;
 }
 
 interface AuthProps {
@@ -26,17 +28,25 @@ export function AuthProvider ({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const supabase = createClient();
   const [user, setUser] = useState<User | null>(null);
+  const [isPending, startTransition] = useTransition();
 
-  const getUserProfile = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    console.log(user);
-    if(user) {
-      const { id, email } = user;
-      setUser({ id, email: email! });
-      return;
-    };
+  const getUserProfile = () => {
+    startTransition( async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if(user && !user.user_metadata?.is_redefinindo_senha) {
+        const { id, email } = user;
+        setUser({ id, email: email! });
+        return;
+      };
 
-    setUser(null);
+      if(user && user.user_metadata?.is_redefinindo_senha) {
+        await supabase.auth.updateUser({ data: { is_redefinindo_senha: false } });
+        await actionSignOut();
+      };
+
+      setUser(null);
+    });
   };
 
   useEffect(() => {
@@ -54,6 +64,7 @@ export function AuthProvider ({ children }: { children: ReactNode }) {
   return (
     <AuthContext.Provider value={{
       user,
+      isLoading: isPending,
     }}>
       {children}
     </AuthContext.Provider>

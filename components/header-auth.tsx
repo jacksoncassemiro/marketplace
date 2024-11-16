@@ -1,8 +1,6 @@
 import { actionSignOut } from "@/app/(paginas-de-autenticacao)/authUtils";
-import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 
 type User = {

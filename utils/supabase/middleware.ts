@@ -36,7 +36,7 @@ export const updateSession = async (request: NextRequest) => {
 
 	// rotas protegidas
 	if (
-		request.nextUrl.pathname.startsWith("/protected") && (user.error || user.data.user?.user_metadata?.is_redefinindo_senha)
+		request.nextUrl.pathname.startsWith("/protected") && user.error
 	) {
 		const redirectUrl = new URL("/login", request.url);
 		redirectUrl.searchParams.set("redirect", "auth");
