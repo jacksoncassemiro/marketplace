@@ -1,23 +1,24 @@
 'use client';
 
-import { Box } from '@mantine/core';
+import { Box, Text, Flex } from '@mantine/core';
 import { Container } from "@/components/layout/Container";
-import { Logotipo } from "@/components/brand/logotipo";
+import { Logo } from "@/components/brand/logo";
 
 export const Footer = () => {
   return (
     <footer>
       <Container>
         <Box className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          <div>
-            <div className="flex justify-center text-teal-600 sm:justify-start">
-              <Logotipo />
-            </div>
+          <Flex
+            direction="column"
+            gap="xs"
+          >
+            <Logo />
 
-            <p className="mt-6 max-w-md text-center leading-relaxed text-gray-500 sm:max-w-xs sm:text-left">
-              Conectando pessoas, fortalecendo comunidades.
-            </p>
-          </div>
+            <Text c="gray.7">
+              Marketplace PI, conectando pessoas, fortalecendo comunidades.
+            </Text>
+          </Flex>
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
             <div className="text-center sm:text-left">
@@ -50,7 +51,7 @@ export const Footer = () => {
           </div>
         </Box>
 
-        <Box className="mt-12 border-t border-gray-100 pt-6">
+        <Box className="">
           <div className="text-center sm:flex sm:justify-between sm:text-left">
             <p className="text-sm text-gray-500">
               <span className="block sm:inline">All rights reserved.</span>

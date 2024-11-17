@@ -1,11 +1,15 @@
 'use client';
 
-import { Container as ContainerMantine } from '@mantine/core';
+import { Container as ContainerMantine, ContainerProps } from '@mantine/core';
 import { ReactNode } from 'react';
 
-export const Container = ({ children }: { children: ReactNode }) => {
+interface Props extends ContainerProps {
+  children: ReactNode;
+}
+
+export const Container = ({ children, size = "lg", ...props }: Props) => {
   return (
-    <ContainerMantine size="lg">
+    <ContainerMantine size={size} {...props}>
       {children}
     </ContainerMantine>
   );
