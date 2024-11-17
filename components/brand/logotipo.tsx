@@ -1,6 +1,6 @@
 import { Image } from '@mantine/core';
 import { NtImage } from '@/components/ui/image';
-import logotipo from '@/assets/images/logotipo.png';
+import logotipo from '@/assets/images/logotipo.svg';
 import { ComponentProps } from 'react';
 
 type Props = ComponentProps<typeof Image>;
