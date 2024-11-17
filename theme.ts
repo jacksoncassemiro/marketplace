@@ -21,4 +21,11 @@ export const theme = createTheme({
     myColor,
   },
   primaryColor: 'myColor',
+  scale: 1,
+  autoContrast: true,
+  defaultGradient: {
+    from: "myColor",
+    to: "teal",
+    deg: 45,
+  }
 });
