@@ -1,11 +1,17 @@
-import NextImage from 'next/image';
 import { Image } from '@mantine/core';
-import logo from '@/assets/logo.png';
+import { NtImage } from '@/components/ui/image';
+import logo from '@/assets/images/logo.png';
+import { ComponentProps } from 'react';
 
-type Props = typeof Image;
+type Props = ComponentProps<typeof Image>;
 
 export const Logo = ({ ...props }: Props) => {
   return (
-    <Image component={NextImage} src={logo} alt="Logo Marketplace PI" {...props} />
+    <Image
+      component={NtImage}
+      src={logo}
+      alt="Logo Marketplace PI"
+      {...props}
+    />
   );
 };
