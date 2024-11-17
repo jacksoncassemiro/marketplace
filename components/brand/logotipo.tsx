@@ -1,3 +1,5 @@
+"use client";
+
 import { Image } from "@/components/ui/image";
 import logotipo from '@/assets/images/logotipo.svg';
 import { ImageProps } from "@mantine/core";

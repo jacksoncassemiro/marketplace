@@ -1,20 +1,16 @@
-import { Main } from "@/components/layout/Main";
-import { HeaderMain } from "@/components/layout/HeaderMain";
-import { Container } from "@/components/layout/Container";
+import { Container } from "@/components/layout/container";
+import { Main } from "@/components/layout/main";
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return (
-    <>
-      <HeaderMain />
-      <Main>
-        <Container>
-          {children}
-        </Container>
-      </Main>
-    </>
-  );
+	return (
+		<>
+			<Main>
+				<Container>{children}</Container>
+			</Main>
+		</>
+	);
 }

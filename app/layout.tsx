@@ -1,4 +1,5 @@
-import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/header/header";
+import { Footer } from "@/components/layout/footer";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "../theme";
@@ -36,6 +37,7 @@ export default function RootLayout({
 						defaultColorScheme="light"
 						withCssVariables
 					>
+						<Header />
             {children}
             <Footer />
 					</MantineProvider>

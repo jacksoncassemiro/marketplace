@@ -8,7 +8,7 @@ interface Props extends ButtonProps, ElementProps<"a", keyof ButtonProps> {
   href: string;
 }
 
-export const Button = ({ children, href, ...props }: Props) => {
+export const ButtonLink = ({ children, href, ...props }: Props) => {
   return (
     <MantineButton
       {...props}

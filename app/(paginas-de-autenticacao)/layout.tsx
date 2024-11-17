@@ -1,20 +1,16 @@
-import { Main } from "@/components/layout/Main";
-import { HeaderSimple } from "@/components/layout/HeaderSimple";
-import { Container } from "@/components/layout/Container";
+import { Container } from "@/components/layout/container";
+import { Main } from "@/components/layout/main";
 
 export default async function Layout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return (
-    <>
-      <HeaderSimple />
-      <Main>
-        <Container>
-          {children}
-        </Container>
-      </Main>
-    </>
-  );
+	return (
+		<>
+			<Main>
+				<Container>{children}</Container>
+			</Main>
+		</>
+	);
 }
