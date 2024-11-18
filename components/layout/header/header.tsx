@@ -2,18 +2,19 @@
 
 import { Logotipo } from "@/components/brand/logotipo";
 import { Container } from "@/components/layout/container";
-import { ButtonLink } from "@/components/ui/buttonLink";
+import { Anchor } from "@/components/ui/anchor";
 import { Nav } from "@/components/layout/header/nav";
+import { Paper } from "@mantine/core";
 
 export const Header = () => {
 	return (
-		<header>
+		<Paper component="header" shadow="xs">
 			<Container>
-				<ButtonLink href="/">
+				<Anchor href="/">
 					<Logotipo />
-				</ButtonLink>
+				</Anchor>
 				<Nav />
 			</Container>
-		</header>
+		</Paper>
 	);
 };
