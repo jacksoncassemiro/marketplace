@@ -9,7 +9,12 @@ import { Paper } from "@mantine/core";
 
 export const Header = () => {
 	return (
-		<Paper component="header" withBorder>
+		<Paper
+			component="header"
+			pos={"sticky"}
+			top={0}
+			withBorder
+		>
 			<Container
 				className="flex items-center justify-between py-4"
 			>
