@@ -1,5 +1,6 @@
 import "@mantine/core/styles.css";
 import { Header } from "@/components/layout/header/header";
+import { Main } from "@/components/layout/main";
 import { Footer } from "@/components/layout/footer";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
@@ -41,7 +42,9 @@ export default function RootLayout({
 						defaultColorScheme="light"
 					>
 						<Header />
-            {children}
+						<Main>
+            	{children}
+						</Main>
             <Footer />
 					</MantineProvider>
 				</body>

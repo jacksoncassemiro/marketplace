@@ -6,8 +6,13 @@ import { Box, Flex, Paper, Text } from "@mantine/core";
 
 export const Footer = () => {
 	return (
-		<Paper component="footer" withBorder>
-			<Container>
+		<Paper
+			component="footer"
+			bg="gray.2"
+		>
+			<Container
+				py="xl"
+			>
 				<Box className="grid grid-cols-1 gap-8 lg:grid-cols-3">
 					<Flex direction="column" gap="xs">
 						<Logo />

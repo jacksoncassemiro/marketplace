@@ -13,7 +13,7 @@ export const Header = () => {
 			component="header"
 			pos={"sticky"}
 			top={0}
-			withBorder
+			shadow="xs"
 		>
 			<Container
 				className="flex items-center justify-between py-4"
