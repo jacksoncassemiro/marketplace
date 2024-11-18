@@ -1,10 +1,10 @@
+import "@mantine/core/styles.css";
 import { Header } from "@/components/layout/header/header";
 import { Footer } from "@/components/layout/footer";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "../theme";
 import { getOrigin } from "@/utils/getOrigin";
-import "@mantine/core/styles.css";
 import "./globals.css";
 
 export const metadata = {
@@ -30,12 +30,15 @@ export default function RootLayout({
 					<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
 					<meta name="apple-mobile-web-app-title" content="Marketplace PI" />
 					<link rel="manifest" href="/favicon/site.webmanifest" />
+					<meta
+						name="viewport"
+						content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
+					/>
 				</head>
 				<body>
 					<MantineProvider
 						theme={theme}
 						defaultColorScheme="light"
-						withCssVariables
 					>
 						<Header />
             {children}

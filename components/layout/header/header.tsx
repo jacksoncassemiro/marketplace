@@ -14,8 +14,8 @@ export const Header = () => {
 				className="flex items-center justify-between py-4"
 			>
 				<Anchor href="/">
-					<Logotipo />
-					<Logo />
+					<Logotipo className="!hidden md:!block" />
+					<Logo className="!block md:!hidden" />
 				</Anchor>
 				<ContentMain />
 			</Container>
