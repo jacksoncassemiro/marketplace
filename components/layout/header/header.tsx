@@ -4,7 +4,7 @@ import { Logotipo } from "@/components/brand/logotipo";
 import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/layout/container";
 import { Anchor } from "@/components/ui/anchor";
-import { ContentMain } from "@/components/layout/header/contentMain";
+import { MainContent } from "@/components/layout/header/mainContent";
 import { Paper } from "@mantine/core";
 
 export const Header = () => {
@@ -22,7 +22,7 @@ export const Header = () => {
 					<Logotipo visibleFrom="md" />
 					<Logo hiddenFrom="md" />
 				</Anchor>
-				<ContentMain />
+				<MainContent />
 			</Container>
 		</Paper>
 	);

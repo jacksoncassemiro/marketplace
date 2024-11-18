@@ -2,7 +2,7 @@ import HeaderAuth from "@/components/header-auth";
 import { Box } from "@mantine/core";
 import Link from "next/link";
 
-export const ContentMain = () => {
+export const MainContent = () => {
   return (
     <>
       <Box className="flex gap-5 items-center font-semibold">
