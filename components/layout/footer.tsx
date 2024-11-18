@@ -2,11 +2,11 @@
 
 import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/layout/container";
-import { Box, Flex, Text } from "@mantine/core";
+import { Box, Flex, Paper, Text } from "@mantine/core";
 
 export const Footer = () => {
 	return (
-		<footer>
+		<Paper component="footer" withBorder>
 			<Container>
 				<Box className="grid grid-cols-1 gap-8 lg:grid-cols-3">
 					<Flex direction="column" gap="xs">
@@ -91,6 +91,6 @@ export const Footer = () => {
 					</div>
 				</Box>
 			</Container>
-		</footer>
+		</Paper>
 	);
 };
