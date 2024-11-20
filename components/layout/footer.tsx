@@ -8,7 +8,7 @@ export const Footer = () => {
 	return (
 		<Box
 			component="footer"
-			className="bg-mantine-bg-2"
+			className="bg-mantine-gray-200 dark:bg-mantine-dark-700"
 		>
 			<Container
 				py="xl"

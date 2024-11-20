@@ -39,7 +39,7 @@ export default function RootLayout({
 				<body>
 					<MantineProvider
 						theme={theme}
-						defaultColorScheme="light"
+						defaultColorScheme="dark"
 					>
 						<Header />
 						<Main>
