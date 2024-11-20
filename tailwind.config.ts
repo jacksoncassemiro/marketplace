@@ -1,16 +1,21 @@
 import type { Config } from "tailwindcss";
+import { DEFAULT_THEME } from '@mantine/core';
 
 const config = {
-  darkMode: ["class"],
+  darkMode: ["class", "[data-mantine-color-scheme='dark']"],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
+    './app/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
+    './node_modules/@mantine/**/*.{js,ts,jsx,tsx}',
   ],
   prefix: "",
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "mantine-bg-1": "var(--bg-1)",
+        "mantine-bg-2": "var(--bg-2)",
+      }
+    },
   },
   plugins: [],
 } satisfies Config;

@@ -2,13 +2,13 @@
 
 import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/layout/container";
-import { Box, Flex, Paper, Text } from "@mantine/core";
+import { Box, Flex, Text } from "@mantine/core";
 
 export const Footer = () => {
 	return (
-		<Paper
+		<Box
 			component="footer"
-			bg="gray.2"
+			className="bg-mantine-bg-2"
 		>
 			<Container
 				py="xl"
@@ -17,7 +17,7 @@ export const Footer = () => {
 					<Flex direction="column" gap="xs">
 						<Logo />
 
-						<Text c="gray.7">
+						<Text c="dimmed">
 							Marketplace PI, conectando pessoas, fortalecendo comunidades.
 						</Text>
 					</Flex>
@@ -96,6 +96,6 @@ export const Footer = () => {
 					</div>
 				</Box>
 			</Container>
-		</Paper>
+		</Box>
 	);
 };

@@ -3,7 +3,15 @@
 @tailwind utilities;
 
 @layer base {
-  :root {}
+  :root {
+    --bg-1: var(--mantine-color-gray-0);
+    --bg-2: var(--mantine-color-gray-2);
+  }
+
+  [data-mantine-color-scheme="dark"] {
+    --bg-1: var(--mantine-color-dark-8);
+    --bg-2: var(--mantine-color-dark-7);
+  }
 }
 
 @layer base {
