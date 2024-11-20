@@ -8,7 +8,7 @@ export const Main = ({ children }: { children: ReactNode }) => {
   return (
     <Box
       component='main'
-      bg="gray.1"
+      bg="gray.0"
     >
       <Container
         py="xl"
