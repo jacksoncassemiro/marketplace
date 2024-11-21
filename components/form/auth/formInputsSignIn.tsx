@@ -1,12 +1,14 @@
 import { ButtonLink } from "@/components/ui/buttonLink";
-import { Button } from "@mantine/core/lib/components";
+import { Button, Title } from "@mantine/core/lib/components";
 import { useFormStatus } from "react-dom";
 
 export const FormInputsSignIn = () => {
   const { pending } = useFormStatus();
   return (
     <>
-      <h1 className="text-2xl font-medium">Sign in</h1>
+      <Title
+        className="text-2xl font-medium"
+      >Sign in</Title>
 			<p className="text-sm text-foreground">
 				Don't have an account?{" "}
 				<ButtonLink
