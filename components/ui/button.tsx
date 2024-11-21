@@ -1,16 +1,15 @@
-import type { ButtonProps, ElementProps } from '@mantine/core';
+import type { ButtonProps as MantineButtonProps, ElementProps } from '@mantine/core';
 import { Button as MantineButton } from '@mantine/core';
 import { ReactNode } from 'react';
 
-interface Props extends ButtonProps, ElementProps<"button", keyof ButtonProps> {
+export interface ButtonProps extends MantineButtonProps, ElementProps<"button", keyof MantineButtonProps> {
   children: ReactNode;
 }
 
-export const Button = ({ children, ...props }: Props) => {
+export const Button = ({ children, ...props }: ButtonProps) => {
   return (
     <MantineButton
 			{...props}
-			loaderProps={{ type: "dots" }}
 		>
       {children}
     </MantineButton>

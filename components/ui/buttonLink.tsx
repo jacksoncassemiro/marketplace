@@ -12,7 +12,6 @@ export const ButtonLink = ({ children, href, ...props }: Props) => {
   return (
     <MantineButton
 			{...props}
-			loaderProps={{ type: "dots" }}
       component={Link}
       href={href}
 		>
