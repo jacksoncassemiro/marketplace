@@ -1,5 +1,5 @@
 import { ButtonLink } from "@/components/ui/buttonLink";
-import { Button, Title } from "@mantine/core/lib/components";
+import { Button, Text, Title } from "@mantine/core/lib/components";
 import { useFormStatus } from "react-dom";
 
 export const FormInputsSignIn = () => {
@@ -9,7 +9,9 @@ export const FormInputsSignIn = () => {
       <Title
         className="text-2xl font-medium"
       >Sign in</Title>
-			<p className="text-sm text-foreground">
+			<Text
+				size="sm"
+			>
 				Don't have an account?{" "}
 				<ButtonLink
 					className="text-foreground font-medium underline"
@@ -17,7 +19,7 @@ export const FormInputsSignIn = () => {
 				>
 					Sign up
 				</ButtonLink>
-			</p>
+			</Text>
 			<div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
 				<Label htmlFor="email">Email</Label>
 				<Input name="email" placeholder="you@example.com" required />
