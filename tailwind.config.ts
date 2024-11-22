@@ -27,7 +27,21 @@ const config = {
     extend: {
       colors: {
         mantine: tailwindColors,
-      }
+      },
+      fontSize: {
+        "mantine-xs": DEFAULT_THEME.fontSizes.xs,
+        "mantine-sm": DEFAULT_THEME.fontSizes.sm,
+        "mantine-md": DEFAULT_THEME.fontSizes.md,
+        "mantine-lg": DEFAULT_THEME.fontSizes.lg,
+        "mantine-xl": DEFAULT_THEME.fontSizes.xl,
+      },
+      spacing: {
+        "mantine-xs": DEFAULT_THEME.spacing.xs,
+        "mantine-sm": DEFAULT_THEME.spacing.sm,
+        "mantine-md": DEFAULT_THEME.spacing.md,
+        "mantine-lg": DEFAULT_THEME.spacing.lg,
+        "mantine-xl": DEFAULT_THEME.spacing.xl,
+      },
     },
   },
   plugins: [],
