@@ -6,8 +6,9 @@ import { Paper } from "@mantine/core";
 export default function Login() {
 	return (
 		<Paper
-			className="flex flex-col min-w-64"
+			className="flex flex-col mx-auto max-w-72"
 			radius="md"
+			p="md"
 		>
 			<FormRoot
 				formAction={actionSignIn}
