@@ -1,8 +1,7 @@
 import { actionSignOut } from "@/app/(paginas-de-autenticacao)/authUtils";
-import { Button } from "@/components/ui/button";
-import { useAuth } from "@/contexts/AuthContext";
-import { ButtonLink } from "./ui/buttonLink";
 import { ButtonSubmitAction } from "@/components/form/buttonSubmitAction";
+import { useAuth } from "@/contexts/authContext";
+import { ButtonLink } from "./ui/buttonLink";
 
 export default function AuthButton() {
 	const { user } = useAuth();
@@ -10,27 +9,16 @@ export default function AuthButton() {
 	return user ? (
 		<div className="flex items-center gap-4">
 			Hey, {user.email}!
-			<ButtonSubmitAction
-				formAction={actionSignOut}
-				variant="outline"
-			>
+			<ButtonSubmitAction formAction={actionSignOut} variant="outline">
 				Sign out
 			</ButtonSubmitAction>
 		</div>
 	) : (
 		<div className="flex gap-2">
-			<ButtonLink
-				size="sm"
-				variant={"outline"}
-				href="/login"
-			>
+			<ButtonLink size="sm" variant={"outline"} href="/login">
 				Sign in
 			</ButtonLink>
-			<ButtonLink
-				size="sm"
-				variant={"default"}
-				href="/criar-conta"
-			>
+			<ButtonLink size="sm" variant={"default"} href="/criar-conta">
 				Sign up
 			</ButtonLink>
 		</div>

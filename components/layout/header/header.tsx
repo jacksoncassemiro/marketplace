@@ -14,6 +14,7 @@ export const Header = () => {
 			pos={"sticky"}
 			top={0}
 			shadow="xs"
+			className="z-50"
 		>
 			<Container
 				className="flex items-center justify-between py-4"

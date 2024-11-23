@@ -14,11 +14,6 @@ interface AuthContextType {
   isLoading: boolean;
 }
 
-interface AuthProps {
-  email: string;
-  password: string;
-}
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider ({ children }: { children: ReactNode }) {

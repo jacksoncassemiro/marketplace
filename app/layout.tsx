@@ -2,7 +2,7 @@ import "@mantine/core/styles.css";
 import { Header } from "@/components/layout/header/header";
 import { Main } from "@/components/layout/main";
 import { Footer } from "@/components/layout/footer";
-import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthProvider } from "@/contexts/authContext";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "../theme";
 import { getOrigin } from "@/utils/getOrigin";
