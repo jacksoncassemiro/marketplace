@@ -1,56 +1,65 @@
 "use client";
 
 import { Anchor } from "@/components/ui/anchor";
-import { Button, Input, Text, Title } from "@mantine/core";
+import { Box, Button, Input, Space, Stack, Text, Title } from "@mantine/core";
 import { useFormStatus } from "react-dom";
 
 export const FormInputsSignIn = () => {
   const { pending } = useFormStatus();
   return (
     <>
-      <Title
-        className="text-2xl font-medium"
-      >
-				Entrar
-			</Title>
-			<Text
-				size="sm"
-			>
-				Não tem uma conta?{" "}
-				<Anchor
-					className="text-foreground font-medium underline"
-					href="/criar-conta"
+      <Box>
+				<Title
+					order={2}
 				>
-					Cadastrar-se
-				</Anchor>
-			</Text>
-			<div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-				<Input.Wrapper label="Email">
-					<Input type="email" />
-				</Input.Wrapper>
-				<Input.Wrapper label="Senha">
-					<Input
-						type="password"
-						name="password"
-						placeholder="Your password"
-						required
-					/>
-				</Input.Wrapper>
-				<Button
-          type="submit"
-          loading={pending}
-        >
 					Entrar
-				</Button>
-				<div className="flex justify-between items-center">
+				</Title>
+				<Text
+					size="sm"
+				>
+					Não tem uma conta?{" "}
 					<Anchor
-						className="text-xs text-foreground underline"
-						href="/alterar-senha"
+						className="text-foreground font-medium underline"
+						href="/criar-conta"
 					>
-						Esqueceu sua senha??
+						Cadastrar-se
 					</Anchor>
-				</div>
-			</div>
+				</Text>
+			</Box>
+			<Stack
+				gap="lg"
+			>
+				<Box className="flex flex-col gap-mantine-xs">
+					<Input.Wrapper label="E-mail">
+						<Input type="email" />
+					</Input.Wrapper>
+					<Input.Wrapper label="Senha">
+						<Input
+							type="password"
+							name="password"
+							required
+						/>
+					</Input.Wrapper>
+				</Box>
+				<Stack
+					gap="xs"
+					align="center"
+				>
+					<Button
+						type="submit"
+						loading={pending}
+						fullWidth
+					>
+						Entrar
+					</Button>
+					<Anchor
+						href="/alterar-senha"
+						size="sm"
+					>
+						Esqueceu sua senha?
+					</Anchor>
+				</Stack>
+			</Stack>
     </>
   );
 };
