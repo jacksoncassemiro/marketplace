@@ -6,7 +6,7 @@ export const FormContent = () => {
 	return (
 		<FormRoot
 			formAction={actionSignIn}
-			className="flex flex-col gap-mantine-sm"
+			className="relative flex flex-col gap-mantine-sm"
 		>
 			<FormInputsSignIn />
 		</FormRoot>
