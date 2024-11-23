@@ -1,7 +1,7 @@
 "use client";
 
 import { Anchor } from "@/components/ui/anchor";
-import { Box, Button, Input, Space, Stack, Text, Title } from "@mantine/core";
+import { Box, Button, Input, Stack, Text, Title } from "@mantine/core";
 import { useFormStatus } from "react-dom";
 
 export const FormInputsSignIn = () => {
