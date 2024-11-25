@@ -1,19 +1,46 @@
 import { ReactNode } from "react";
-import { useForm } from '@mantine/form';
+import { createFormContext } from '@mantine/form';
 
 export interface FormRootProps {
   children: ReactNode;
   formAction: (formData: FormData) => void;
   className?: string;
+  initialValues?: {
+    [key: string]: any;
+  },
+  validate?: {
+    [key: string]: (value: any) => string | null;
+  },
 }
 
-export const FormRoot = ({ children, formAction, className }: FormRootProps) => {
+const [FormProvider, useFormContext, useForm] = createFormContext<{
+  [key: string]: any
+}>();
+
+export const FormRoot = ({
+  children,
+  formAction,
+  className,
+  initialValues = {},
+  validate = {},
+}: FormRootProps) => {
+  const form = useForm({
+    mode: 'uncontrolled',
+    initialValues,
+    validate,
+  });
+
   return (
-    <form
-      action={formAction}
-      className={className}
-    >
-      {children}
-    </form>
+    <FormProvider form={form}>
+      <form
+        action={formAction}
+        className={className}
+        onSubmit={form.onSubmit(() => {})}
+      >
+        {children}
+      </form>
+    </FormProvider>
   );
 }
+
+export { useFormContext, useForm };
