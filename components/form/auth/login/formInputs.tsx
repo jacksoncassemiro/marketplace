@@ -40,9 +40,7 @@ export const FormInputsSignIn = () => {
 				gap="lg"
 			>
 				<Box className="flex flex-col gap-mantine-xs">
-					<Input.Wrapper label="E-mail" error={form.errors.email} component={
-						({ children }: { children: React.ReactNode }) => <button>{children}</button>
-					}>
+					<Input.Wrapper label="E-mail" error={form.errors.email}>
 						<Input
 							type="text"
 							key={form.key('email')}
