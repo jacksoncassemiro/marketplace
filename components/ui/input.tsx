@@ -1,11 +1,11 @@
-import * as React from "react";
+import { forwardRef, type InputHTMLAttributes } from "react";
 
 import { cxMerge } from "@/utils/styleUtils";
 
 export interface InputProps
-	extends React.InputHTMLAttributes<HTMLInputElement> {}
+	extends InputHTMLAttributes<HTMLInputElement> {}
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
 	({ className, type, ...props }, ref) => {
 		return (
 			<input
