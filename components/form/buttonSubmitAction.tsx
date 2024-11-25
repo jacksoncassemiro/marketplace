@@ -4,7 +4,10 @@ import { Button, ButtonProps } from "@/components/ui/button";
 import { useFormStatus } from "react-dom";
 import { FormRoot, FormRootProps } from "@/components/form/formRoot";
 
-interface Props extends Omit<ButtonProps, "formAction">, Omit<FormRootProps, "children"> {}
+interface Props extends Omit<ButtonProps, "formAction"> {
+  formAction: FormRootProps["formAction"]
+}
+
 interface FormContentProps extends Omit<ButtonProps, "formAction"> {}
 
 const FormContent = ({
@@ -31,10 +34,10 @@ export const ButtonSubmitAction = ({
 }: Props) => {
 
   return (
-    <FormRoot formAction={formAction}>
+    <form action={formAction}>
       <FormContent {...props}>
         {children}
       </FormContent>
-    </FormRoot>
+    </form>
   );
 }
