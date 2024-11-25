@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { createFormContext } from '@mantine/form';
 
 export interface FormRootProps {
+  nameForm: string;
   children: ReactNode;
   formAction: (formData: FormData) => void;
   className?: string;
@@ -9,7 +10,9 @@ export interface FormRootProps {
     [key: string]: any;
   },
   validate?: {
-    [key: string]: (value: any) => string | null;
+    [key: string]: (value: any) => string | null | {
+      [key: string]: (value: any) => string | null;
+    };
   },
 }
 
@@ -18,6 +21,7 @@ const [FormProvider, useFormContext, useForm] = createFormContext<{
 }>();
 
 export const FormRoot = ({
+  nameForm,
   children,
   formAction,
   className,
@@ -26,6 +30,8 @@ export const FormRoot = ({
 }: FormRootProps) => {
   const form = useForm({
     mode: 'uncontrolled',
+    validateInputOnChange: true,
+    name: nameForm,
     initialValues,
     validate,
   });
@@ -35,7 +41,15 @@ export const FormRoot = ({
       <form
         action={formAction}
         className={className}
-        onSubmit={form.onSubmit(() => {})}
+        onSubmit={
+          form.onSubmit(
+            () => {},
+            (errors) => {
+              const firstErrorPath = Object.keys(errors)[0];
+              form.getInputNode(firstErrorPath)?.focus();
+            }
+          )
+        }
       >
         {children}
       </form>
