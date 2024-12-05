@@ -29,13 +29,17 @@ export const actionSignUp = async (formData: FormData) => {
 
 	if (error) {
 		console.error(error.code + " " + error.message);
-		return encodedRedirect("error", "/criar-conta", error.message);
+		return encodedRedirect({
+			type: "error",
+			path: "/criar-conta",
+			message: error.message,
+		});
 	} else {
-		return encodedRedirect(
-			"success",
-			"/criar-conta",
-			"Obrigado por se inscrever! Por favor, verifique seu e-mail para um link de verificação."
-		);
+		return encodedRedirect({
+			type: "success",
+			path: "/criar-conta",
+			message: "Obrigado por se inscrever! Por favor, verifique seu e-mail para um link de verificação.",
+		});
 	}
 };
 
@@ -50,10 +54,18 @@ export const actionSignIn = async (formData: FormData) => {
 	});
 
 	if (error) {
-		return encodedRedirect("error", "/login", error.message);
+		return encodedRedirect({
+			type: "error",
+			path: "/login",
+			message: error.message,
+		});
 	}
 
-	encodedRedirect("redirect", "/", "auth");
+	encodedRedirect({
+		type: "redirect",
+		path: "/",
+		message: "auth",
+	});
 };
 
 export const actionForgotPassword = async (formData: FormData) => {
@@ -63,7 +75,11 @@ export const actionForgotPassword = async (formData: FormData) => {
 	const callbackUrl = formData.get("callbackUrl")?.toString();
 
 	if (!email) {
-		return encodedRedirect("error", "/alterar-senha", "E-mail é obrigatório.");
+		return encodedRedirect({
+			type: "error",
+			path: "/alterar-senha",
+			message: "E-mail é obrigatório.",
+		});
 	}
 
 	const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -72,22 +88,22 @@ export const actionForgotPassword = async (formData: FormData) => {
 
 	if (error) {
 		console.error(error.message);
-		return encodedRedirect(
-			"error",
-			"/alterar-senha",
-			"Não foi possível redefinir a senha"
-		);
+		return encodedRedirect({
+			type: "error",
+			path: "/alterar-senha",
+			message: "Não foi possível redefinir a senha",
+		});
 	}
 
 	if (callbackUrl) {
 		return redirect(callbackUrl);
 	}
 
-	return encodedRedirect(
-		"success",
-		"/alterar-senha",
-		"Verifique seu e-mail para obter um link para redefinir sua senha."
-	);
+	return encodedRedirect({
+		type: "success",
+		path: "/alterar-senha",
+		message: "Verifique seu e-mail para obter um link para redefinir sua senha.",
+	});
 };
 
 export const actionResetPassword = async (formData: FormData) => {
@@ -97,19 +113,19 @@ export const actionResetPassword = async (formData: FormData) => {
 	const confirmPassword = formData.get("confirmPassword") as string;
 
 	if (!password || !confirmPassword) {
-		encodedRedirect(
-			"error",
-			"/protected/recuperar-senha",
-			"Senha e confirmação de senha são necessárias."
-		);
+		encodedRedirect({
+			type: "error",
+			path: "/protected/recuperar-senha",
+			message: "Senha e confirmação de senha são necessárias.",
+		});
 	}
 
 	if (password !== confirmPassword) {
-		encodedRedirect(
-			"error",
-			"/protected/recuperar-senha",
-			"As senhas não correspondem."
-		);
+		encodedRedirect({
+			type: "error",
+			path: "/protected/recuperar-senha",
+			message: "As senhas não correspondem.",
+		});
 	}
 
 	const { error } = await supabase.auth.updateUser({
@@ -117,18 +133,26 @@ export const actionResetPassword = async (formData: FormData) => {
 	});
 
 	if (error) {
-		encodedRedirect(
-			"error",
-			"/protected/recuperar-senha",
-			"Falha na atualização da senha."
-		);
+		encodedRedirect({
+			type: "error",
+			path: "/protected/recuperar-senha",
+			message: "Falha na atualização da senha.",
+		});
 	}
 
-	encodedRedirect("success", "/protected/recuperar-senha", "Senha atualizada.");
+	encodedRedirect({
+		type: "success",
+		path: "/protected/recuperar-senha",
+		message: "Senha atualizada.",
+	});
 };
 
 export const actionSignOut = async () => {
 	const supabase = createClient();
 	await supabase.auth.signOut();
-	encodedRedirect("redirect", "/", "auth");
+	encodedRedirect({
+		type: "redirect",
+		path: "/",
+		message: "auth",
+	});
 };

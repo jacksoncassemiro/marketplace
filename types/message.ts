@@ -1,0 +1,1 @@
+export type Message = "error" | "success" | "info" | "warning" | "redirect";

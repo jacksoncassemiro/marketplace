@@ -33,6 +33,7 @@
       "@/styles/*": ["./styles/*"],
       "@/public/*": ["./public/*"],
       "@/config/*": ["./config/*"],
+      "@/types/*": ["./types/*"],
       "@/tests/*": ["./tests/*"]
     }
   },
