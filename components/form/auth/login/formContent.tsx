@@ -25,7 +25,7 @@ export const FormContent = () => {
 	return (
 		<FormRoot
 			formAction={actionSignIn}
-			className="relative flex flex-col gap-mantine-sm"
+			className="flex flex-col gap-mantine-sm"
 			validate={validate}
 			initialValues={{ email: "", password: "" }}
 			nameForm="signIn"

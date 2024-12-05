@@ -1,23 +1,18 @@
 "use client";
 
 import { Anchor } from "@/components/ui/anchor";
-import { Box, Button, Input, LoadingOverlay, Stack, Text, Title } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { useEffect } from "react";
+import { Box, Button, Input, Stack, Text, Title } from "@mantine/core";
 import { useFormStatus } from "react-dom";
 import { useFormContext } from "@/components/form/formRoot";
+import { LoadingState } from "@/components/loadingState";
 
 export const FormInputsSignIn = () => {
 	const form = useFormContext();
   const { pending } = useFormStatus();
-	const [visible, { toggle }] = useDisclosure(true);
-	useEffect(() => {
-		toggle();
-	}, [pending]);
 
   return (
     <>
-			<LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
+			<LoadingState loading={pending} />
       <Box>
 				<Title
 					order={2}
