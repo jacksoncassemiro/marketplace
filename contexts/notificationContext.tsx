@@ -1,12 +1,13 @@
 'use client';
 
-import { createContext, useContext, useEffect, ReactNode } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { MessageType } from '@/types/message';
+import { TypesMessageType } from '@/types/utils/encodeRedirect';
+import { typesMessage } from '@/utils/defaultObjects';
 import { Notifications } from '@mantine/notifications';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { createContext, ReactNode, useContext, useEffect } from 'react';
 
 interface ShowMessageProps {
-  type: MessageType;
+  type: TypesMessageType;
   message: string;
 }
 
@@ -34,7 +35,17 @@ export function NotificationProvider ({ children }: { children: ReactNode }) {
   };
 
   const getTypeAndMessageParams = () => {
-    // console.log(searchParams);
+    const listKey = searchParams.keys().toArray() as TypesMessageType[];
+    const listValues = searchParams.values().toArray() as string[];
+    
+    listKey.map((key: TypesMessageType, index: number) => {
+      if(typesMessage.includes(key)) {
+        showMessage({
+          type: key,
+          message: listValues[index],
+        })
+      }
+    })
   };
 
   useEffect(() => {

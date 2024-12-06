@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode, useTransition } from 'react';
 import { createClient } from "@/utils/supabase/client";
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 type User = {
   id: string;
@@ -17,9 +17,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider ({ children }: { children: ReactNode }) {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const supabase = createClient();
   const [user, setUser] = useState<User | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -40,8 +38,7 @@ export function AuthProvider ({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const redirect = searchParams.get("redirect");
-    if(redirect === "auth") {
-      router.replace(pathname); 
+    if(redirect) {
       getUserProfile();
     };
   }, [searchParams]);
