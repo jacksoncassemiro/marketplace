@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, ReactNode } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { MessageType } from '@/types/message';
+import { Notifications } from '@mantine/notifications';
 
 interface ShowMessageProps {
   type: MessageType;
@@ -33,7 +34,7 @@ export function NotificationProvider ({ children }: { children: ReactNode }) {
   };
 
   const getTypeAndMessageParams = () => {
-    
+    // console.log(searchParams);
   };
 
   useEffect(() => {
@@ -45,6 +46,7 @@ export function NotificationProvider ({ children }: { children: ReactNode }) {
       showMessage,
       redefinePathName,
     }}>
+      <Notifications />
       {children}
     </NotificationContext.Provider>
   );

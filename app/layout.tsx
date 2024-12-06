@@ -1,4 +1,5 @@
 import "@mantine/core/styles.css";
+import '@mantine/notifications/styles.css';
 import { Header } from "@/components/layout/header/header";
 import { Main } from "@/components/layout/main";
 import { Footer } from "@/components/layout/footer";
@@ -7,6 +8,7 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "../theme";
 import { getOrigin } from "@/utils/getOrigin";
 import "./globals.css";
+import { NotificationProvider } from "@/contexts/notificationContext";
 
 export const metadata = {
 	metadataBase: new URL(getOrigin()),
@@ -41,11 +43,13 @@ export default function RootLayout({
 						theme={theme}
 						defaultColorScheme="dark"
 					>
-						<Header />
-						<Main>
-            	{children}
-						</Main>
-            <Footer />
+						<NotificationProvider>
+							<Header />
+							<Main>
+								{children}
+							</Main>
+							<Footer />
+						</NotificationProvider>
 					</MantineProvider>
 				</body>
 			</html>
