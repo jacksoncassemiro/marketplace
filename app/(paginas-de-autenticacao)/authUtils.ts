@@ -1,5 +1,7 @@
 "use server";
 
+import { AuthProps } from "@/schemas/login/authSchema";
+import { errorMessage } from "@/utils/defaultObjects";
 import { encodedRedirect } from "@/utils/encodedRedirect";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
@@ -44,21 +46,20 @@ export const handleSignUp = async (formData: FormData) => {
 	}
 };
 
-export const handleSignIn = async (formData: FormData) => {
-	const email = formData.get("email") as string;
-	const password = formData.get("password") as string;
+export const handleSignIn = async (formData: AuthProps) => {
+	const { email, password } = formData;
 	const supabase = createClient();
 
 	const { error } = await supabase.auth.signInWithPassword({
 		email,
 		password,
 	});
-
 	if (error) {
+		const message = errorMessage[error.code!] || "Erro ao fazer login";
 		return encodedRedirect({
 			type: "error",
 			path: "/login",
-			message: error.message,
+			message,
 		});
 	}
 

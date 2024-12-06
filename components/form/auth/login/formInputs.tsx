@@ -1,18 +1,14 @@
 "use client";
 
 import { Anchor } from "@/components/ui/anchor";
-import { Box, Button, Input, Stack, Text, Title } from "@mantine/core";
-import { useFormStatus } from "react-dom";
+import { Box, Input, Stack, Text, Title } from "@mantine/core";
 import { useFormContext } from "@/components/form/formRoot";
-import { LoadingState } from "@/components/loadingState";
+import { Button } from "@/components/ui/button";
 
 export const FormInputsSignIn = () => {
 	const form = useFormContext();
-  const { pending } = useFormStatus();
-
   return (
     <>
-			<LoadingState loading={pending} />
       <Box>
 				<Title
 					order={2}
@@ -57,7 +53,6 @@ export const FormInputsSignIn = () => {
 				>
 					<Button
 						type="submit"
-						loading={pending}
 						fullWidth
 					>
 						Entrar

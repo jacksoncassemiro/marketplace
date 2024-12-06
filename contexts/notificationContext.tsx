@@ -11,6 +11,7 @@ interface ShowMessageProps {
 
 interface NotificationContextType {
   showMessage: (params: ShowMessageProps) => void;
+  redefinePathName: () => void;
 }
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
@@ -20,6 +21,10 @@ export function NotificationProvider ({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
+  const redefinePathName = () => {
+    router.replace(pathname); 
+  }
+
   const showMessage = ({
     type,
     message,
@@ -28,10 +33,7 @@ export function NotificationProvider ({ children }: { children: ReactNode }) {
   };
 
   const getTypeAndMessageParams = () => {
-    const message = searchParams.get("message");
-    if (message) {
-      return message;
-    }
+    
   };
 
   useEffect(() => {
@@ -41,6 +43,7 @@ export function NotificationProvider ({ children }: { children: ReactNode }) {
   return (
     <NotificationContext.Provider value={{
       showMessage,
+      redefinePathName,
     }}>
       {children}
     </NotificationContext.Provider>

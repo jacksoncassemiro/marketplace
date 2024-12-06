@@ -2,20 +2,18 @@
 
 import { ReactNode } from "react";
 import { createFormContext } from '@mantine/form';
+import { LoadingState } from "@/components/loadingState";
 
 export interface FormRootProps {
   nameForm: string;
   children: ReactNode;
-  formAction: (formData: FormData) => void;
   className?: string;
+  isLoading: boolean;
+  formAction: (formData: any) => void;
   initialValues?: {
     [key: string]: any;
-  },
-  validate?: {
-    [key: string]: (value: any) => string | null | {
-      [key: string]: (value: any) => string | null;
-    };
-  },
+  };
+  validate?: Record<string, (value: any) => string | null>;
 }
 
 const [FormProvider, useFormContext, useForm] = createFormContext<{
@@ -25,8 +23,9 @@ const [FormProvider, useFormContext, useForm] = createFormContext<{
 export const FormRoot = ({
   nameForm,
   children,
-  formAction,
   className,
+  isLoading,
+  formAction,
   initialValues = {},
   validate = {},
 }: FormRootProps) => {
@@ -41,11 +40,11 @@ export const FormRoot = ({
   return (
     <FormProvider form={form}>
       <form
-        action={formAction}
+        id={nameForm}
         className={className}
         onSubmit={
           form.onSubmit(
-            () => {},
+            (formData) => formAction(formData),
             (errors) => {
               const firstErrorPath = Object.keys(errors)[0];
               form.getInputNode(firstErrorPath)?.focus();
@@ -53,6 +52,7 @@ export const FormRoot = ({
           )
         }
       >
+			  <LoadingState loading={isLoading} />
         {children}
       </form>
     </FormProvider>

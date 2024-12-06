@@ -20,3 +20,5 @@ export const initialValues = {
   email: "",
   password: "",
 }
+
+export type AuthProps = typeof initialValues;
