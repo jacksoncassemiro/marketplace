@@ -39,12 +39,12 @@ export default function RootLayout({
 					/>
 			</head>
 			<body>
-				<Suspense fallback={<div>Carregando...</div>}>
-					<AuthProvider>
-						<MantineProvider
-							theme={theme}
-							defaultColorScheme="dark"
-						>
+				<MantineProvider
+					theme={theme}
+					defaultColorScheme="dark"
+				>
+					<Suspense fallback={null}>
+						<AuthProvider>
 							<NotificationProvider>
 								<Header />
 								<Main>
@@ -52,9 +52,9 @@ export default function RootLayout({
 								</Main>
 								<Footer />
 							</NotificationProvider>
-						</MantineProvider>
-					</AuthProvider>
-				</Suspense>
+						</AuthProvider>
+					</Suspense>
+				</MantineProvider>
 			</body>
 		</html>
 	);
