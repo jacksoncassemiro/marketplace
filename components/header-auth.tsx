@@ -1,4 +1,4 @@
-import { actionSignOut } from "@/app/(paginas-de-autenticacao)/authUtils";
+import { handleSignOut } from "@/app/(paginas-de-autenticacao)/authUtils";
 import { ButtonSubmitAction } from "@/components/form/buttonSubmitAction";
 import { useAuth } from "@/contexts/authContext";
 import { ButtonLink } from "./ui/buttonLink";
@@ -9,7 +9,7 @@ export default function AuthButton() {
 	return user ? (
 		<div className="flex items-center gap-4">
 			Hey, {user.email}!
-			<ButtonSubmitAction formAction={actionSignOut} variant="outline">
+			<ButtonSubmitAction formAction={handleSignOut} variant="outline">
 				Sign out
 			</ButtonSubmitAction>
 		</div>

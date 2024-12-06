@@ -1,4 +1,4 @@
-import { actionSignUp } from "@/app/(paginas-de-autenticacao)/authUtils";
+import { handleSignUp } from "@/app/(paginas-de-autenticacao)/authUtils";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/form/buttonSubmitAction";
 import { Input } from "@/components/ui/input";
@@ -35,7 +35,7 @@ export default function Signup({ searchParams }: { searchParams: Message }) {
 						minLength={6}
 						required
 					/>
-					<SubmitButton formAction={actionSignUp} pendingText="Signing up...">
+					<SubmitButton formAction={handleSignUp} pendingText="Signing up...">
 						Sign up
 					</SubmitButton>
 					<FormMessage message={searchParams} />

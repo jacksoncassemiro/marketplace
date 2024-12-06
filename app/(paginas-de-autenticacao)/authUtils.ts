@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const actionSignUp = async (formData: FormData) => {
+export const handleSignUp = async (formData: FormData) => {
 	const email = formData.get("email")?.toString();
 	const password = formData.get("password")?.toString();
 	const supabase = createClient();
@@ -38,12 +38,13 @@ export const actionSignUp = async (formData: FormData) => {
 		return encodedRedirect({
 			type: "success",
 			path: "/criar-conta",
-			message: "Obrigado por se inscrever! Por favor, verifique seu e-mail para um link de verificação.",
+			message:
+				"Obrigado por se inscrever! Por favor, verifique seu e-mail para um link de verificação.",
 		});
 	}
 };
 
-export const actionSignIn = async (formData: FormData) => {
+export const handleSignIn = async (formData: FormData) => {
 	const email = formData.get("email") as string;
 	const password = formData.get("password") as string;
 	const supabase = createClient();
@@ -68,7 +69,7 @@ export const actionSignIn = async (formData: FormData) => {
 	});
 };
 
-export const actionForgotPassword = async (formData: FormData) => {
+export const handleForgotPassword = async (formData: FormData) => {
 	const email = formData.get("email")?.toString();
 	const supabase = createClient();
 	const origin = headers().get("origin");
@@ -102,11 +103,12 @@ export const actionForgotPassword = async (formData: FormData) => {
 	return encodedRedirect({
 		type: "success",
 		path: "/alterar-senha",
-		message: "Verifique seu e-mail para obter um link para redefinir sua senha.",
+		message:
+			"Verifique seu e-mail para obter um link para redefinir sua senha.",
 	});
 };
 
-export const actionResetPassword = async (formData: FormData) => {
+export const handleResetPassword = async (formData: FormData) => {
 	const supabase = createClient();
 
 	const password = formData.get("password") as string;
@@ -147,7 +149,7 @@ export const actionResetPassword = async (formData: FormData) => {
 	});
 };
 
-export const actionSignOut = async () => {
+export const handleSignOut = async () => {
 	const supabase = createClient();
 	await supabase.auth.signOut();
 	encodedRedirect({
