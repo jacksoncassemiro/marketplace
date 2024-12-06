@@ -1,4 +1,4 @@
-import { Message } from "./message";
+import { MessageType } from "./message";
 
 /**
  * Redireciona para um caminho especificado com uma mensagem codificada como um parâmetro de consulta.
@@ -7,7 +7,7 @@ import { Message } from "./message";
  * @param {string} message - A mensagem a ser codificada e adicionada como um parâmetro de consulta.
  */
 export interface EncoreRedirectProps {
-  type: Message;
+  type: MessageType;
   path: string;
   message: string;
 }
