@@ -40,7 +40,7 @@ export const updateSession = async (request: NextRequest) => {
 		pathname.startsWith("/protected") && user.error
 	) {
 		const redirectUrl = new URL("/login", request.url);
-		redirectUrl.searchParams.set("redirect", "auth");
+		redirectUrl.searchParams.set("redirect", "Você precisa de permissão para prosseguir ou sua sessão expirou.");
 		return NextResponse.redirect(redirectUrl);
 	}
 

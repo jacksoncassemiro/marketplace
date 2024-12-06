@@ -32,6 +32,9 @@ export function NotificationProvider ({ children }: { children: ReactNode }) {
     type,
     message,
   }: ShowMessageProps) => {
+    clearNotificationParams();
+    if(!message) return;
+
     const config: NotificationData = {
       message,
       color: "gray",
@@ -55,7 +58,6 @@ export function NotificationProvider ({ children }: { children: ReactNode }) {
     }
 
     Notifications.show(config);
-    clearNotificationParams();
   };
 
   const getTypeAndMessageParams = () => {

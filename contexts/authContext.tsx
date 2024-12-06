@@ -37,11 +37,10 @@ export function AuthProvider ({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    const redirect = searchParams.get("redirect");
-    if(redirect) {
+    if(searchParams.has("redirect")) {
       getUserProfile();
     };
-  }, [searchParams]);
+  }, [searchParams.toString()]);
 
   useEffect(() => {
     getUserProfile();

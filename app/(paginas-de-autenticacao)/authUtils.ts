@@ -66,7 +66,7 @@ export const handleSignIn = async (formData: AuthProps) => {
 	encodedRedirect({
 		type: "redirect",
 		path: "/",
-		message: "auth",
+		message: "",
 	});
 };
 
@@ -156,6 +156,6 @@ export const handleSignOut = async () => {
 	encodedRedirect({
 		type: "redirect",
 		path: "/",
-		message: "auth",
+		message: "",
 	});
 };
