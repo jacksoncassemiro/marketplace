@@ -2,7 +2,7 @@
 
 import { TypesMessageType } from '@/types/utils/encodeRedirect';
 import { typesMessage } from '@/utils/defaultObjects';
-import { Notifications } from '@mantine/notifications';
+import { Notifications, NotificationData } from '@mantine/notifications';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { createContext, ReactNode, useContext, useEffect } from 'react';
 
@@ -13,7 +13,6 @@ interface ShowMessageProps {
 
 interface NotificationContextType {
   showMessage: (params: ShowMessageProps) => void;
-  redefinePathName: () => void;
 }
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
@@ -23,39 +22,63 @@ export function NotificationProvider ({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const redefinePathName = () => {
-    router.replace(pathname); 
-  }
+  const clearNotificationParams = () => {
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    typesMessage.forEach((key) => newSearchParams.delete(key));
+    router.replace(`${pathname}?${newSearchParams.toString()}`);
+  };
 
   const showMessage = ({
     type,
     message,
   }: ShowMessageProps) => {
-    
+    const config: NotificationData = {
+      message,
+      color: "gray",
+      radius: "md",
+      withBorder: true,
+    }
+
+    switch (type) {
+      case "success":
+        config.color = "green";
+        break;
+      case "error":
+        config.color = "red";
+        break;
+      case "warning":
+        config.color = "yellow";
+        break;
+      case "info":
+        config.color = "blue";
+        break;
+    }
+
+    Notifications.show(config);
+    clearNotificationParams();
   };
 
   const getTypeAndMessageParams = () => {
-    const listKey = searchParams.keys().toArray() as TypesMessageType[];
-    const listValues = searchParams.values().toArray() as string[];
-    
-    listKey.map((key: TypesMessageType, index: number) => {
-      if(typesMessage.includes(key)) {
+    const listKey = Array.from(searchParams.keys()) as TypesMessageType[];
+    const listValues = Array.from(searchParams.values()) as string[];
+
+    listKey.forEach((key: TypesMessageType, index: number) => {
+      if (typesMessage.includes(key)) {
         showMessage({
           type: key,
           message: listValues[index],
-        })
+        });
       }
-    })
+    });  
   };
 
   useEffect(() => {
     getTypeAndMessageParams();
-  }, [searchParams]);
+  }, [searchParams.toString()]);
 
   return (
     <NotificationContext.Provider value={{
       showMessage,
-      redefinePathName,
     }}>
       <Notifications />
       {children}
