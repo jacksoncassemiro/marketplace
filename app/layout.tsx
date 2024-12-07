@@ -1,5 +1,6 @@
 import "@mantine/core/styles.css";
 import '@mantine/notifications/styles.css';
+import '@mantine/spotlight/styles.css';
 import { Header } from "@/components/layout/header/header";
 import { Main } from "@/components/layout/main";
 import { Footer } from "@/components/layout/footer";
