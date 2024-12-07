@@ -6,10 +6,11 @@ export interface ButtonProps extends MantineButtonProps, ElementProps<"button", 
   children: ReactNode;
 }
 
-export const Button = ({ children, ...props }: ButtonProps) => {
+export const Button = ({ children, size = "sm", ...props }: ButtonProps) => {
   return (
     <MantineButton
 			{...props}
+      size={size}
 		>
       {children}
     </MantineButton>

@@ -1,6 +1,6 @@
 import { useAuth } from "@/contexts/authContext";
-import { AuthMenu } from "./authMenu";
-import { UserMenu } from "./userMenu";
+import { AuthMenu } from "@/components/layout/sidebar/authMenu/authMenu";
+import { UserMenu } from "../sidebar/userMenu";
 
 export const AccountButton = () => {
 	const { user } = useAuth();

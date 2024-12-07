@@ -8,12 +8,13 @@ interface Props extends AnchorProps, ElementProps<"a", keyof AnchorProps> {
   href: string;
 }
 
-export const Anchor = ({ children, href, ...props }: Props) => {
+export const Anchor = ({ children, href, size = "sm", ...props }: Props) => {
   return (
     <MantineAnchor
       {...props}
       component={Link}
       href={href}
+      size={size}
 		>
       {children}
     </MantineAnchor>
