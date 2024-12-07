@@ -5,9 +5,9 @@ import { ButtonSubmitAction } from "@/components/form/buttonSubmitAction";
 export const UserMenu = ({ user }: { user: User }) => {
   return (
     <div className="flex items-center gap-4">
-			Hey, {user.email}!
+			Olá, {user.email}!
 			<ButtonSubmitAction formAction={handleSignOut} variant="outline">
-				Sign out
+				Sair
 			</ButtonSubmitAction>
 		</div>
   );

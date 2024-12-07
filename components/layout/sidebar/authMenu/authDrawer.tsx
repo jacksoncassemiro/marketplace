@@ -1,6 +1,6 @@
 import { ButtonLink } from "@/components/ui/buttonLink";
 import { Sidebar, SidebarProps } from "@/components/layout/sidebar/sidebar";
-import { Divider, Flex, Group, Stack } from "@mantine/core";
+import { Divider, Flex, Stack } from "@mantine/core";
 import { Anchor } from "@/components/ui/anchor";
 
 export const AuthDrawer = (props: Omit<SidebarProps, "children">) => {
@@ -15,7 +15,7 @@ export const AuthDrawer = (props: Omit<SidebarProps, "children">) => {
           direction="column"
           align="center"
         >
-          <Group gap="xs" w="100%" grow>
+          <Stack gap="xs" w="100%">
             <ButtonLink
               variant="filled"
               href="/login"
@@ -29,7 +29,7 @@ export const AuthDrawer = (props: Omit<SidebarProps, "children">) => {
             >
               Cadastrar-se
             </ButtonLink>
-          </Group>
+          </Stack>
 
           <Anchor
             href="/alterar-senha"

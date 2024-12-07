@@ -70,11 +70,10 @@ export const handleSignIn = async (formData: AuthProps) => {
 	});
 };
 
-export const handleForgotPassword = async (formData: FormData) => {
-	const email = formData.get("email")?.toString();
+export const handleForgotPassword = async (formData: Omit<AuthProps, "password">) => {
+	const { email } = formData;
 	const supabase = createClient();
 	const origin = headers().get("origin");
-	const callbackUrl = formData.get("callbackUrl")?.toString();
 
 	if (!email) {
 		return encodedRedirect({
@@ -89,16 +88,11 @@ export const handleForgotPassword = async (formData: FormData) => {
 	});
 
 	if (error) {
-		console.error(error.message);
 		return encodedRedirect({
 			type: "error",
 			path: "/alterar-senha",
-			message: "Não foi possível redefinir a senha",
+			message: `Não foi possível redefinir a senha: ${error.message}`,
 		});
-	}
-
-	if (callbackUrl) {
-		return redirect(callbackUrl);
 	}
 
 	return encodedRedirect({

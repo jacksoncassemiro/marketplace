@@ -40,6 +40,7 @@ export function NotificationProvider ({ children }: { children: ReactNode }) {
       color: "gray",
       radius: "md",
       withBorder: true,
+      position: "top-center",
     }
 
     switch (type) {
