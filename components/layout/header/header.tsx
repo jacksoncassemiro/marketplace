@@ -17,9 +17,9 @@ export const Header = () => {
 			className="z-50"
 		>
 			<Container
-				className="flex items-center justify-between py-4"
+				className="flex items-center justify-between gap-2 py-4"
 			>
-				<Anchor href="/">
+				<Anchor className="min-w-max" href="/">
 					<Logotipo visibleFrom="sm" />
 					<Logo hiddenFrom="sm" />
 				</Anchor>

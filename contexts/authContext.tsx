@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState, ReactNode, useTransitio
 import { createClient } from "@/utils/supabase/client";
 import { useSearchParams } from 'next/navigation';
 
-type User = {
+export type User = {
   id: string;
   email: string;
 };
