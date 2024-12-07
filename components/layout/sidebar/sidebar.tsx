@@ -15,7 +15,7 @@ export const Sidebar = ({
   const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     const clickedElement = event.target as HTMLElement;
     const classNames = clickedElement.className.toLowerCase();
-    if (classNames.includes("button")) {
+    if (classNames.includes("button") || classNames.includes("anchor")) {
       onClose();
     }
   };
