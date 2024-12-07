@@ -10,7 +10,9 @@ export const Logotipo = ({ h = 38, w = "auto", ...props }: ImageProps) => {
       className="hidden"
       src={logotipo}
       alt="Logotipo Marketplace PI"
+      mih={h}
       h={h}
+      miw={w}
       w={w}
       {...props}
     />

@@ -12,3 +12,12 @@ export const typesMessage: TypesMessageType[] = [
   "warning",
   "redirect",
 ]
+
+export const breakpoints = {
+  xs: 320,  // Dispositivos extra pequenos (smartphones)
+  sm: 640,  // Dispositivos pequenos (smartphones em paisagem)
+  md: 768,  // Dispositivos médios (tablets)
+  lg: 1024, // Dispositivos grandes (computadores)
+  xl: 1280, // Dispositivos extra grandes (monitores grandes)
+  '2xl': 1536, // Dispositivos extra-extra grandes (telas muito grandes)
+};
