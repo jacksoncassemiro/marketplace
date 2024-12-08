@@ -24,9 +24,9 @@ export default async function ResetPassword() {
 				placeholder="Confirm password"
 				required
 			/>
-			<ButtonSubmitAction formAction={handleResetPassword}>
+			{/* <ButtonSubmitAction formAction={handleResetPassword}>
 				Reset password
-			</ButtonSubmitAction>
+			</ButtonSubmitAction> */}
 		</form>
 	);
 }
