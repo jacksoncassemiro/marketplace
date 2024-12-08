@@ -2,7 +2,7 @@
 
 import { handleResetPassword } from "@/app/(paginas-de-autenticacao)/authUtils";
 import { FormRoot } from "@/components/form/formRoot";
-import { initialValuesCreateAccount, validateCreateAccount } from "@/schemas/auth/authSchema";
+import { initialValuesForgotPassword, validateForgotPassword } from "@/schemas/auth/authSchema";
 import { useTransition } from "react";
 import { FormInputsResetPassword } from "@/components/form/auth/recuperar-senha/formInputs";
 
@@ -16,8 +16,8 @@ export const FormContentResetPassword = () => {
 	return (
 		<FormRoot
 			className="flex flex-col gap-mantine-sm"
-			validate={validateCreateAccount}
-			initialValues={initialValuesCreateAccount}
+			validate={validateForgotPassword}
+			initialValues={initialValuesForgotPassword}
 			nameForm="ResetPassword"
 			formAction={handleFormSubmit}
 			isLoading={isPending}

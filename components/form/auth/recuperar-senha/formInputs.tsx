@@ -1,11 +1,9 @@
 "use client";
 
-import { Anchor } from "@/components/ui/anchor";
 import { Box, Input as MantineInput, PasswordInput, Stack, Text, Title } from "@mantine/core";
 import { useFormContext } from "@/components/form/formRoot";
 import { Button } from "@/components/ui/button";
 import { PasswordSecurityLevel } from "@/components/passwordSecurityLevel";
-import { Input } from "@/components/ui/input";
 
 export const FormInputsResetPassword = () => {
 	const form = useFormContext();
@@ -33,10 +31,11 @@ export const FormInputsResetPassword = () => {
 								name="senha"
 								key={form.key('senha')}
 								{...form.getInputProps('senha')}
+								error={form.getInputProps('senha').error && true}
 							/>
 						</PasswordSecurityLevel>
 					</MantineInput.Wrapper>
-					<MantineInput.Wrapper label="Confirmar senha" error={form.errors.confirmar_senha}>
+					<MantineInput.Wrapper label="Confirmar senha">
 						<PasswordInput
 							name="confirmar_senha"
 							key={form.key('confirmar_senha')}
