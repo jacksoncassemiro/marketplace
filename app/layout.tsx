@@ -1,72 +1,62 @@
-import DeployButton from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import HeaderAuth from "@/components/header-auth";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
-import { GeistSans } from "geist/font/sans";
-import { ThemeProvider } from "next-themes";
-import Link from "next/link";
+import "@mantine/core/styles.css";
+import '@mantine/notifications/styles.css';
+import '@mantine/spotlight/styles.css';
+import { Header } from "@/components/layout/header/header";
+import { Main } from "@/components/layout/main";
+import { Footer } from "@/components/layout/footer";
+import { AuthProvider } from "@/contexts/authContext";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { theme } from "../theme";
+import { getOrigin } from "@/utils/getOrigin";
 import "./globals.css";
-
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+import { NotificationProvider } from "@/contexts/notificationContext";
+import { Suspense } from "react";
 
 export const metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+	metadataBase: new URL(getOrigin()),
+	title: "Marketplace PI",
+	description:
+		"Projeto desenvolvido para o curso de Sistemas para Internet da UNCISAL.",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return (
-    <html lang="en" className={GeistSans.className} suppressHydrationWarning>
-      <body className="bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main className="min-h-screen flex flex-col items-center">
-            <div className="flex-1 w-full flex flex-col gap-20 items-center">
-              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-                <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-                  <div className="flex gap-5 items-center font-semibold">
-                    <Link href={"/"}>Next.js Supabase Starter</Link>
-                    <div className="flex items-center gap-2">
-                      <DeployButton />
-                    </div>
-                  </div>
-                  {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
-                </div>
-              </nav>
-              <div className="flex flex-col gap-20 max-w-5xl p-5">
-                {children}
-              </div>
-
-              <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-                <p>
-                  Powered by{" "}
-                  <a
-                    href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-                    target="_blank"
-                    className="font-bold hover:underline"
-                    rel="noreferrer"
-                  >
-                    Supabase
-                  </a>
-                </p>
-                <ThemeSwitcher />
-              </footer>
-            </div>
-          </main>
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="pt-BR" suppressHydrationWarning>
+			<head>
+				<ColorSchemeScript defaultColorScheme="dark" />
+				<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+				<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+				<link rel="shortcut icon" href="/favicon/favicon.ico" />
+				<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+				<meta name="apple-mobile-web-app-title" content="Marketplace PI" />
+				<link rel="manifest" href="/favicon/site.webmanifest" />
+				<meta
+					name="viewport"
+					content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
+					/>
+			</head>
+			<body>
+				<MantineProvider
+					theme={theme}
+					defaultColorScheme="dark"
+				>
+					<Suspense fallback={null}>
+						<AuthProvider>
+							<NotificationProvider>
+								<Header />
+								<Main>
+									{children}
+								</Main>
+								<Footer />
+							</NotificationProvider>
+						</AuthProvider>
+					</Suspense>
+				</MantineProvider>
+			</body>
+		</html>
+	);
 }

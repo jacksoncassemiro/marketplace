@@ -1,25 +1,30 @@
-import * as React from "react";
+import { Input as MantineInput, InputProps, ElementProps } from "@mantine/core";
+import { IMaskInput } from 'react-imask';
 
-import { cn } from "@/lib/utils";
+const masks = {
+	telefone: '(00) 00000-0000',
+	cep: '00000-000',
+	cpf: '000.000.000-00',
+	cnpj: '00.000.000/0000-00',
+	rg: '00.000.000-0',
+	data: '00/00/0000',
+	dataHora: '00/00/0000 00:00',
+	hora: '00:00',
+} as const
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+type MasksType = keyof typeof masks;
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
-    return (
-      <input
-        type={type}
-        className={cn(
-          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-          className,
-        )}
-        ref={ref}
-        {...props}
-      />
-    );
-  },
-);
-Input.displayName = "Input";
+interface MyButtonProps extends InputProps,
+  Omit<ElementProps<'input', keyof InputProps>, "value">{}
 
-export { Input };
+export const Input = ({ ...props }: MyButtonProps & { mask?: MasksType }) => {
+	const mask = props?.mask
+	const maskValue = mask && mask in masks ? masks[mask] : undefined;
+	return (
+		<MantineInput
+			{...props}
+			component={IMaskInput}
+			mask={maskValue}
+		/>
+	);
+};
