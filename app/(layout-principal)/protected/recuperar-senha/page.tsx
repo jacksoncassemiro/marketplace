@@ -1,7 +1,6 @@
 import { handleResetPassword } from "@/app/(paginas-de-autenticacao)/authUtils";
-import { ButtonSubmitAction } from "@/components/form/buttonSubmitAction";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Input } from "@mantine/core";
 
 export default async function ResetPassword() {
 	return (
@@ -24,9 +23,6 @@ export default async function ResetPassword() {
 				placeholder="Confirm password"
 				required
 			/>
-			<ButtonSubmitAction formAction={handleResetPassword}>
-				Reset password
-			</ButtonSubmitAction>
 		</form>
 	);
 }
