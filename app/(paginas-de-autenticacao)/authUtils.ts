@@ -1,39 +1,45 @@
 "use server";
 
-import { AuthProps } from "@/schemas/auth/authSchema";
+import { AuthTypes, CreateAccountTypes } from "@/schemas/auth/authSchema";
 import { errorMessage } from "@/utils/defaultObjects";
 import { encodedRedirect } from "@/utils/encodedRedirect";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 
-export const handleSignUp = async (formData: FormData) => {
-	const email = formData.get("email")?.toString();
-	const password = formData.get("password")?.toString();
+export const handleSignUp = async (formData: CreateAccountTypes) => {
+	const {
+		email,
+		senha,
+		nome,
+		sobrenome,
+		telefone,
+	} = formData;
 	const supabase = createClient();
 	const origin = headers().get("origin");
 
-	if (!email || !password) {
-		return { error: "E-mail e senha são obrigatórios." };
+	if (!email || !senha || !nome || !sobrenome || !telefone) {
+		return { error: "Todos os campos são obrigatórios." };
 	}
 
 	const { error } = await supabase.auth.signUp({
 		email,
-		password,
+		password: senha,
 		options: {
 			emailRedirectTo: `${origin}/api/auth/callback`,
 			data: {
 				is_redefinindo_senha: false,
-				is_ativo: true,
+				nome,
+				sobrenome,
+				telefone,
 			},
 		},
 	});
 
 	if (error) {
-		console.error(error.code + " " + error.message);
 		return encodedRedirect({
 			type: "error",
 			path: "/criar-conta",
-			message: error.message,
+			message: `Erro ao criar conta: ${error.message}`,
 		});
 	} else {
 		return encodedRedirect({
@@ -45,8 +51,11 @@ export const handleSignUp = async (formData: FormData) => {
 	}
 };
 
-export const handleSignIn = async (formData: AuthProps) => {
-	const { email, senha } = formData;
+export const handleSignIn = async (formData: AuthTypes) => {
+	const {
+		email,
+		senha,
+	} = formData;
 	const supabase = createClient();
 
 	const { error } = await supabase.auth.signInWithPassword({
@@ -70,7 +79,7 @@ export const handleSignIn = async (formData: AuthProps) => {
 };
 
 export const handleForgotPassword = async (
-	formData: Omit<AuthProps, "senha">
+	formData: Omit<AuthTypes, "senha">
 ) => {
 	const { email } = formData;
 	const supabase = createClient();
