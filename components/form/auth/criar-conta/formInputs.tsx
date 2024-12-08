@@ -1,10 +1,11 @@
 "use client";
 
 import { Anchor } from "@/components/ui/anchor";
-import { Box, Input, Stack, Text, Title } from "@mantine/core";
+import { Box, Input as MantineInput, Stack, Text, Title } from "@mantine/core";
 import { useFormContext } from "@/components/form/formRoot";
 import { Button } from "@/components/ui/button";
 import { PasswordSecurityLevel } from "@/components/passwordSecurityLevel";
+import { Input } from "@/components/ui/input";
 
 export const FormInputsSignUp = () => {
 	const form = useFormContext();
@@ -32,23 +33,45 @@ export const FormInputsSignUp = () => {
 				gap="lg"
 			>
 				<Box className="flex flex-col gap-mantine-xs">
-					<Input.Wrapper label="E-mail" error={form.errors.email}>
+					<MantineInput.Wrapper label="Nome" error={form.errors.nome}>
+						<Input
+							type="text"
+							key={form.key('nome')}
+        			{...form.getInputProps('nome')}
+						/>
+					</MantineInput.Wrapper>
+					<MantineInput.Wrapper label="Sobrenome" error={form.errors.sobrenome}>
+						<Input
+							type="text"
+							key={form.key('sobrenome')}
+        			{...form.getInputProps('sobrenome')}
+						/>
+					</MantineInput.Wrapper>
+					<MantineInput.Wrapper label="Contato" error={form.errors.telefone}>
+						<Input
+							type="text"
+							key={form.key('telefone')}
+							mask="telefone"
+        			{...form.getInputProps('telefone')}
+						/>
+					</MantineInput.Wrapper>
+					<MantineInput.Wrapper label="E-mail" error={form.errors.email}>
 						<Input
 							type="text"
 							key={form.key('email')}
         			{...form.getInputProps('email')}
 						/>
-					</Input.Wrapper>
-					<Input.Wrapper label="Senha">
+					</MantineInput.Wrapper>
+					<MantineInput.Wrapper label="Senha">
 						<PasswordSecurityLevel>
 							<Input
 								type="password"
-								name="password"
-								key={form.key('password')}
-								{...form.getInputProps('password')}
+								name="senha"
+								key={form.key('senha')}
+								{...form.getInputProps('senha')}
 							/>
 						</PasswordSecurityLevel>
-					</Input.Wrapper>
+					</MantineInput.Wrapper>
 				</Box>
 				<Stack
 					gap="xs"

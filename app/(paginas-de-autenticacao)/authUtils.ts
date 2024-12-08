@@ -46,12 +46,12 @@ export const handleSignUp = async (formData: FormData) => {
 };
 
 export const handleSignIn = async (formData: AuthProps) => {
-	const { email, password } = formData;
+	const { email, senha } = formData;
 	const supabase = createClient();
 
 	const { error } = await supabase.auth.signInWithPassword({
 		email,
-		password,
+		password: senha,
 	});
 	if (error) {
 		const message = errorMessage[error.code!] || "Erro ao fazer login";
@@ -70,7 +70,7 @@ export const handleSignIn = async (formData: AuthProps) => {
 };
 
 export const handleForgotPassword = async (
-	formData: Omit<AuthProps, "password">
+	formData: Omit<AuthProps, "senha">
 ) => {
 	const { email } = formData;
 	const supabase = createClient();

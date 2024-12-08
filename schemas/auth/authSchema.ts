@@ -8,7 +8,7 @@ export const validate = {
     }
     return null;
   },
-  password: (value: string) => {
+  senha: (value: string) => {
     if (!value || value.length < 8) {
       return "Campo obrigatório";
     }
@@ -18,14 +18,35 @@ export const validate = {
 
 export const initialValues = {
   email: "",
-  password: "",
+  senha: "",
 }
 
 export type AuthProps = typeof initialValues;
 
 export const validateCreateAccount = {
   ...validate,
-  password: (value: string) => {
+  nome: (value: string) => {
+    if (!value) {
+      return "Campo obrigatório";
+    }
+    return null;
+  },
+  sobrenome: (value: string) => {
+    if (!value) {
+      return "Campo obrigatório";
+    }
+    return null;
+  },
+  telefone: (value: string) => {
+    if (!value) {
+      return "Campo obrigatório";
+    }
+    if (!/^\(?\d{2}\)?[\s-]?9?\d{4}-?\d{4}$/.test(value)) {
+      return "Número inválido";
+    }
+    return null;
+  },
+  senha: (value: string) => {
     if (!value) {
       return "Campo obrigatório";
     }
@@ -53,7 +74,10 @@ export const validateCreateAccount = {
 };
 
 export const initialValuesCreateAccount = {
-  ...initialValues
+  ...initialValues,
+  nome: "",
+  sobrenome: "",
+  telefone: "",
 }
 
 export type CreateAccountProps = typeof initialValuesCreateAccount;

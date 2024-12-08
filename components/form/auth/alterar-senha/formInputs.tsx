@@ -1,9 +1,10 @@
 "use client";
 
 import { Anchor } from "@/components/ui/anchor";
-import { Box, Input, Stack, Text, Title } from "@mantine/core";
+import { Box, Input as MantineInput, Stack, Text, Title } from "@mantine/core";
 import { useFormContext } from "@/components/form/formRoot";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export const FormInputsForgotPassword = () => {
 	const form = useFormContext();
@@ -31,13 +32,13 @@ export const FormInputsForgotPassword = () => {
 				gap="lg"
 			>
 				<Box className="flex flex-col gap-mantine-xs">
-					<Input.Wrapper label="E-mail" error={form.errors.email}>
+					<MantineInput.Wrapper label="E-mail" error={form.errors.email}>
 						<Input
 							type="text"
 							key={form.key('email')}
         			{...form.getInputProps('email')}
 						/>
-					</Input.Wrapper>
+					</MantineInput.Wrapper>
 				</Box>
 				<Stack
 					gap="xs"

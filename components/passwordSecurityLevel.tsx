@@ -36,7 +36,7 @@ function getStrength(password: string) {
 export const PasswordSecurityLevel = ({ children }:{ children: ReactNode }) => {
   const form = useFormContext();
 	const [password, setPassword] = useState('');
-	form.watch('password', ({ value }) => {
+	form.watch('senha', ({ value }) => {
 		setPassword(value);
   });
   const [popoverOpened, setPopoverOpened] = useState(false);
