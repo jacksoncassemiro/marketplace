@@ -14,6 +14,8 @@ export const handleSignUp = async (formData: CreateAccountTypes) => {
 		sobrenome,
 		telefone,
 	} = formData;
+	const cleanTelefone = telefone.replace(/\D/g, "");
+
 	const supabase = createClient();
 	const origin = headers().get("origin");
 
@@ -30,7 +32,7 @@ export const handleSignUp = async (formData: CreateAccountTypes) => {
 				is_redefinindo_senha: false,
 				nome,
 				sobrenome,
-				telefone,
+				telefone: cleanTelefone,
 			},
 		},
 	});
