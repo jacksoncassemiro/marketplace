@@ -14,7 +14,7 @@ export const FormInputsForgotPassword = () => {
 				<Title
 					order={2}
 				>
-					Redefinir senha
+					Solicitar redefinição de senha
 				</Title>
 				<Text
 					size="sm"
@@ -48,7 +48,7 @@ export const FormInputsForgotPassword = () => {
 						type="submit"
 						fullWidth
 					>
-						Redefinir
+						Solicitar
 					</Button>
 				</Stack>
 			</Stack>

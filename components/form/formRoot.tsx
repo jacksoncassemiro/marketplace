@@ -13,7 +13,7 @@ export interface FormRootProps {
   initialValues?: {
     [key: string]: any;
   };
-  validate?: Record<string, (value: any) => string | null>;
+  validate?: Record<string, (value: any, values?: any) => string | null>;
 }
 
 const [FormProvider, useFormContext, useForm] = createFormContext<{
