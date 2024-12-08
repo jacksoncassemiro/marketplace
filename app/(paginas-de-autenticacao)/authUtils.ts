@@ -1,115 +1,140 @@
 "use server";
 
+import { AuthTypes, CreateAccountTypes } from "@/schemas/auth/authSchema";
+import { errorMessage } from "@/utils/defaultObjects";
 import { encodedRedirect } from "@/utils/encodedRedirect";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 
-export const actionSignUp = async (formData: FormData) => {
-	const email = formData.get("email")?.toString();
-	const password = formData.get("password")?.toString();
+export const handleSignUp = async (formData: CreateAccountTypes) => {
+	const {
+		email,
+		senha,
+		nome,
+		sobrenome,
+		telefone,
+	} = formData;
+	const cleanTelefone = telefone.replace(/\D/g, "");
+
 	const supabase = createClient();
 	const origin = headers().get("origin");
 
-	if (!email || !password) {
-		return { error: "E-mail e senha são obrigatórios." };
+	if (!email || !senha || !nome || !sobrenome || !telefone) {
+		return { error: "Todos os campos são obrigatórios." };
 	}
 
 	const { error } = await supabase.auth.signUp({
 		email,
-		password,
+		password: senha,
 		options: {
-			emailRedirectTo: `${origin}/auth/callback`,
+			emailRedirectTo: `${origin}/api/auth/callback`,
 			data: {
 				is_redefinindo_senha: false,
-				is_ativo: true,
+				nome,
+				sobrenome,
+				telefone: cleanTelefone,
 			},
 		},
 	});
 
 	if (error) {
-		console.error(error.code + " " + error.message);
-		return encodedRedirect("error", "/criar-conta", error.message);
+		return encodedRedirect({
+			type: "error",
+			path: "/criar-conta",
+			message: `Erro ao criar conta: ${error.message}`,
+		});
 	} else {
-		return encodedRedirect(
-			"success",
-			"/criar-conta",
-			"Obrigado por se inscrever! Por favor, verifique seu e-mail para um link de verificação."
-		);
+		return encodedRedirect({
+			type: "success",
+			path: "/criar-conta",
+			message:
+				"Obrigado por se inscrever! Por favor, verifique seu e-mail para um link de verificação.",
+		});
 	}
 };
 
-export const actionSignIn = async (formData: FormData) => {
-	const email = formData.get("email") as string;
-	const password = formData.get("password") as string;
+export const handleSignIn = async (formData: AuthTypes) => {
+	const {
+		email,
+		senha,
+	} = formData;
 	const supabase = createClient();
 
 	const { error } = await supabase.auth.signInWithPassword({
 		email,
-		password,
+		password: senha,
 	});
-
 	if (error) {
-		return encodedRedirect("error", "/login", error.message);
+		const message = errorMessage[error.code!] || "Erro ao fazer login";
+		return encodedRedirect({
+			type: "error",
+			path: "/login",
+			message,
+		});
 	}
 
-	encodedRedirect("redirect", "/", "auth");
+	encodedRedirect({
+		type: "redirect",
+		path: "/",
+		message: "",
+	});
 };
 
-export const actionForgotPassword = async (formData: FormData) => {
-	const email = formData.get("email")?.toString();
+export const handleForgotPassword = async (
+	formData: Omit<AuthTypes, "senha">
+) => {
+	const { email } = formData;
 	const supabase = createClient();
 	const origin = headers().get("origin");
-	const callbackUrl = formData.get("callbackUrl")?.toString();
 
 	if (!email) {
-		return encodedRedirect("error", "/alterar-senha", "E-mail é obrigatório.");
+		return encodedRedirect({
+			type: "error",
+			path: "/alterar-senha",
+			message: "E-mail é obrigatório.",
+		});
 	}
 
 	const { error } = await supabase.auth.resetPasswordForEmail(email, {
-		redirectTo: `${origin}/auth/callback?redirect_to=/protected/recuperar-senha`,
+		redirectTo: `${origin}/api/auth/callback?redirect_to=/protected/recuperar-senha`,
 	});
 
 	if (error) {
-		console.error(error.message);
-		return encodedRedirect(
-			"error",
-			"/alterar-senha",
-			"Não foi possível redefinir a senha"
-		);
+		return encodedRedirect({
+			type: "error",
+			path: "/alterar-senha",
+			message: `Não foi possível redefinir a senha: ${error.message}`,
+		});
 	}
 
-	if (callbackUrl) {
-		return redirect(callbackUrl);
-	}
-
-	return encodedRedirect(
-		"success",
-		"/alterar-senha",
-		"Verifique seu e-mail para obter um link para redefinir sua senha."
-	);
+	return encodedRedirect({
+		type: "success",
+		path: "/alterar-senha",
+		message:
+			"Verifique seu e-mail para obter um link para redefinir sua senha.",
+	});
 };
 
-export const actionResetPassword = async (formData: FormData) => {
+export const handleResetPassword = async (formData: FormData) => {
 	const supabase = createClient();
 
 	const password = formData.get("password") as string;
 	const confirmPassword = formData.get("confirmPassword") as string;
 
 	if (!password || !confirmPassword) {
-		encodedRedirect(
-			"error",
-			"/protected/recuperar-senha",
-			"Senha e confirmação de senha são necessárias."
-		);
+		encodedRedirect({
+			type: "error",
+			path: "/protected/recuperar-senha",
+			message: "Senha e confirmação de senha são necessárias.",
+		});
 	}
 
 	if (password !== confirmPassword) {
-		encodedRedirect(
-			"error",
-			"/protected/recuperar-senha",
-			"As senhas não correspondem."
-		);
+		encodedRedirect({
+			type: "error",
+			path: "/protected/recuperar-senha",
+			message: "As senhas não correspondem.",
+		});
 	}
 
 	const { error } = await supabase.auth.updateUser({
@@ -117,18 +142,26 @@ export const actionResetPassword = async (formData: FormData) => {
 	});
 
 	if (error) {
-		encodedRedirect(
-			"error",
-			"/protected/recuperar-senha",
-			"Falha na atualização da senha."
-		);
+		encodedRedirect({
+			type: "error",
+			path: "/protected/recuperar-senha",
+			message: "Falha na atualização da senha.",
+		});
 	}
 
-	encodedRedirect("success", "/protected/recuperar-senha", "Senha atualizada.");
+	encodedRedirect({
+		type: "success",
+		path: "/protected/recuperar-senha",
+		message: "Senha atualizada.",
+	});
 };
 
-export const actionSignOut = async () => {
+export const handleSignOut = async () => {
 	const supabase = createClient();
 	await supabase.auth.signOut();
-	encodedRedirect("redirect", "/", "auth");
+	encodedRedirect({
+		type: "redirect",
+		path: "/",
+		message: "",
+	});
 };
