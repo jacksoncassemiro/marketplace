@@ -1,6 +1,6 @@
 "use server";
 
-import { AuthTypes, CreateAccountTypes } from "@/schemas/auth/authSchema";
+import { AuthTypes, CreateAccountTypes, ForgotPasswordTypes } from "@/schemas/auth/authSchema";
 import { errorMessage } from "@/utils/defaultObjects";
 import { encodedRedirect } from "@/utils/encodedRedirect";
 import { createClient } from "@/utils/supabase/server";
@@ -115,13 +115,15 @@ export const handleForgotPassword = async (
 	});
 };
 
-export const handleResetPassword = async (formData: FormData) => {
+export const handleResetPassword = async (formData: ForgotPasswordTypes) => {
 	const supabase = createClient();
 
-	const password = formData.get("password") as string;
-	const confirmPassword = formData.get("confirmPassword") as string;
+	const {
+		senha,
+		confirmar_senha
+	} = formData;
 
-	if (!password || !confirmPassword) {
+	if (!senha || !confirmar_senha) {
 		encodedRedirect({
 			type: "error",
 			path: "/protected/recuperar-senha",
@@ -129,7 +131,7 @@ export const handleResetPassword = async (formData: FormData) => {
 		});
 	}
 
-	if (password !== confirmPassword) {
+	if (senha !== confirmar_senha) {
 		encodedRedirect({
 			type: "error",
 			path: "/protected/recuperar-senha",
@@ -138,14 +140,15 @@ export const handleResetPassword = async (formData: FormData) => {
 	}
 
 	const { error } = await supabase.auth.updateUser({
-		password: password,
+		password: senha,
 	});
 
 	if (error) {
+		const message = errorMessage[error.code!] || "Falha na atualização da senha.";
 		encodedRedirect({
 			type: "error",
 			path: "/protected/recuperar-senha",
-			message: "Falha na atualização da senha.",
+			message,
 		});
 	}
 

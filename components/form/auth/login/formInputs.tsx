@@ -1,7 +1,7 @@
 "use client";
 
 import { Anchor } from "@/components/ui/anchor";
-import { Box, Input as MantineInput, Stack, Text, Title } from "@mantine/core";
+import { Box, Input as MantineInput, PasswordInput, Stack, Text, Title } from "@mantine/core";
 import { useFormContext } from "@/components/form/formRoot";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,8 +40,7 @@ export const FormInputsSignIn = () => {
 						/>
 					</MantineInput.Wrapper>
 					<MantineInput.Wrapper label="Senha" error={form.errors.senha}>
-						<Input
-							type="password"
+						<PasswordInput
 							name="senha"
 							key={form.key('senha')}
         			{...form.getInputProps('senha')}
