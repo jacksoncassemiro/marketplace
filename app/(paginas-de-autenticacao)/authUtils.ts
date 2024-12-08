@@ -1,11 +1,10 @@
 "use server";
 
-import { AuthProps } from "@/schemas/login/authSchema";
+import { AuthProps } from "@/schemas/auth/authSchema";
 import { errorMessage } from "@/utils/defaultObjects";
 import { encodedRedirect } from "@/utils/encodedRedirect";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 
 export const handleSignUp = async (formData: FormData) => {
 	const email = formData.get("email")?.toString();
@@ -70,7 +69,9 @@ export const handleSignIn = async (formData: AuthProps) => {
 	});
 };
 
-export const handleForgotPassword = async (formData: Omit<AuthProps, "password">) => {
+export const handleForgotPassword = async (
+	formData: Omit<AuthProps, "password">
+) => {
 	const { email } = formData;
 	const supabase = createClient();
 	const origin = headers().get("origin");

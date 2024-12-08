@@ -3,7 +3,7 @@
 import { handleSignIn } from "@/app/(paginas-de-autenticacao)/authUtils";
 import { FormInputsSignIn } from "@/components/form/auth/login/formInputs";
 import { FormRoot } from "@/components/form/formRoot";
-import { initialValues, validate } from "@/schemas/login/authSchema";
+import { initialValues, validate } from "@/schemas/auth/authSchema";
 import { useTransition } from "react";
 
 export const FormContentSignIn = () => {
