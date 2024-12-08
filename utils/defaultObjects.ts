@@ -3,6 +3,7 @@ import { TypesMessageType } from "@/types/utils/encodeRedirect";
 export const errorMessage = {
   invalid_credentials: "E-mail ou senha incorretos.",
   validation_failed: "Erro de validação. Cheque suas credenciaiais.",
+  same_password: "A nova senha deve ser diferente da senha antiga.",
 } as Record<string, string>;
 
 export const typesMessage: TypesMessageType[] = [

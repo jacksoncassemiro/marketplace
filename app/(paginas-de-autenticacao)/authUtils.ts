@@ -144,10 +144,11 @@ export const handleResetPassword = async (formData: ForgotPasswordTypes) => {
 	});
 
 	if (error) {
+		const message = errorMessage[error.code!] || "Falha na atualização da senha.";
 		encodedRedirect({
 			type: "error",
 			path: "/protected/recuperar-senha",
-			message: "Falha na atualização da senha.",
+			message,
 		});
 	}
 
